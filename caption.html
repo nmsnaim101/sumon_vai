@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>গ্যালারি ক্যাপশন এডিটর</title>
+<style>
+:root{--g:#0b6b3a;--bg:#f4f6f4;--card:#fff;--ink:#17201a}
+@media(prefers-color-scheme:dark){:root{--bg:#101612;--card:#1a231d;--ink:#eaf2ec}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Noto Sans Bengali","Kalpurush","Siyam Rupali",system-ui,sans-serif;padding:0 0 90px}
+header{background:var(--g);color:#fff;padding:14px 16px}header h1{margin:0;font-size:20px}header p{margin:4px 0 0;font-size:13px;opacity:.9}
+main{padding:12px 16px;max-width:760px;margin:auto}
+.cat{margin:18px 0 6px;font-weight:700;font-size:17px;color:var(--g)}
+.it{display:flex;gap:10px;background:var(--card);border-radius:12px;padding:8px;margin-bottom:8px;box-shadow:0 1px 3px #0002}
+.it img{width:92px;height:92px;object-fit:cover;border-radius:8px;flex:none}
+.it div{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+input,select,button{font:inherit;font-size:15px;padding:8px;border-radius:8px;border:1px solid #8a9a8f;background:var(--card);color:var(--ink);width:100%}
+small{opacity:.6;font-size:11px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);padding:10px 16px;box-shadow:0 -2px 8px #0003;display:flex;gap:8px}
+.bar button{background:var(--g);color:#fff;border:0;font-weight:700}.bar .s{background:#666}
+</style></head><body>
+<header><h1>📷 গ্যালারি ক্যাপশন এডিটর</h1><p>প্রতিটা ছবির নিচে ক্যাপশন লিখুন, দরকার হলে ক্যাটাগরি বদলান। শেষে নিচের সবুজ বোতামে চাপুন, <b>gallery.json</b> নামে ফাইল নামবে। সেটা সাইটের <b>data</b> ফোল্ডারে আগের ফাইলের জায়গায় আপলোড করুন।</p></header>
+<main id="m">লোড হচ্ছে…</main>
+<div class="bar"><button id="dl">⬇️ gallery.json ডাউনলোড</button></div>
+<script>
+let D=null;
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function draw(){
+ const cs=D.cats;
+ document.getElementById('m').innerHTML=cs.map((c,ci)=>`<div class="cat">${c.id}. ${esc(c.name)} (${c.photos.length})</div>`+(c.photos.length?c.photos.map((p,pi)=>`<div class="it"><img src="${esc(p.src)}" loading="lazy"><div><input data-c="${ci}" data-p="${pi}" data-f="cap" value="${esc(p.cap||'')}" placeholder="ক্যাপশন লিখুন (ফাঁকা রাখলে কিছু দেখাবে না)"><select data-c="${ci}" data-p="${pi}" data-f="cat">${cs.map((x,xi)=>`<option value="${xi}" ${xi==ci?'selected':''}>${x.id}. ${esc(x.name)}</option>`).join('')}</select></div></div>`).join(''):'<small>এই ক্যাটাগরিতে এখন ছবি নেই।</small>')).join('');
+}
+fetch('data/gallery.json').then(r=>r.json()).then(d=>{D=d;draw()}).catch(()=>{document.getElementById('m').textContent='gallery.json লোড হয়নি।'});
+document.getElementById('m').addEventListener('input',e=>{const t=e.target;if(t.dataset.f=='cap')D.cats[t.dataset.c].photos[t.dataset.p].cap=t.value});
+document.getElementById('m').addEventListener('change',e=>{const t=e.target;if(t.dataset.f=='cat'){const c=+t.dataset.c,p=+t.dataset.p,y=D.cats[c].photos.splice(p,1)[0];D.cats[+t.value].photos.push(y);const sy=scrollY;draw();scrollTo(0,sy)}});
+document.getElementById('dl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(D,null,1)],{type:'application/json'}));a.download='gallery.json';a.click()};
+</script></body></html>

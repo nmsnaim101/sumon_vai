@@ -1,20 +1,590 @@
 {
- "photos": [
+ "cats": [
   {
-   "src": "img/g1.jpg",
-   "cap": "মহিলা উঠান বৈঠক"
+   "id": 1,
+   "name": "৫ই আগস্টের পর সংখ্যালঘুদের পাশে",
+   "desc": "৫ই আগস্টের পরবর্তী সময়ে হিন্দুধর্মাবলম্বীদের নিরাপত্তার জন্য পাশে দাঁড়িয়েছেন।",
+   "photos": [
+    {
+     "src": "img/gallery/t/b1_01.jpg",
+     "full": "img/gallery/b1_01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_04.jpg",
+     "full": "img/gallery/b1_04.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_05.jpg",
+     "full": "img/gallery/b1_05.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_06.jpg",
+     "full": "img/gallery/b1_06.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_07.jpg",
+     "full": "img/gallery/b1_07.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_08.jpg",
+     "full": "img/gallery/b1_08.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_09.jpg",
+     "full": "img/gallery/b1_09.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_10.jpg",
+     "full": "img/gallery/b1_10.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_11.jpg",
+     "full": "img/gallery/b1_11.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_12.jpg",
+     "full": "img/gallery/b1_12.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_13.jpg",
+     "full": "img/gallery/b1_13.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_14.jpg",
+     "full": "img/gallery/b1_14.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_15.jpg",
+     "full": "img/gallery/b1_15.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_19.jpg",
+     "full": "img/gallery/b1_19.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_20.jpg",
+     "full": "img/gallery/b1_20.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_02.jpg",
+     "full": "img/gallery/b2_02.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_03.jpg",
+     "full": "img/gallery/b2_03.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_04.jpg",
+     "full": "img/gallery/b2_04.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_05.jpg",
+     "full": "img/gallery/b2_05.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_06.jpg",
+     "full": "img/gallery/b2_06.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_07.jpg",
+     "full": "img/gallery/b2_07.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_08.jpg",
+     "full": "img/gallery/b2_08.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_12.jpg",
+     "full": "img/gallery/b2_12.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_07.jpg",
+     "full": "img/gallery/b3_07.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_08.jpg",
+     "full": "img/gallery/b3_08.jpg",
+     "cap": ""
+    }
+   ]
   },
   {
-   "src": "img/g2.jpg",
-   "cap": "সহকর্মীদের সাথে"
+   "id": 2,
+   "name": "২০২৪ বন্যায় ত্রাণ ও আশ্রয়কেন্দ্র",
+   "desc": "২০২৪ সালের বন্যায় ত্রাণ বিতরণ ও রাজগঞ্জ স্কুলে আশ্রয়কেন্দ্রের ব্যবস্থাপনা।",
+   "photos": [
+    {
+     "src": "img/gallery/t/b3_11.jpg",
+     "full": "img/gallery/b3_11.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_13.jpg",
+     "full": "img/gallery/b3_13.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_14.jpg",
+     "full": "img/gallery/b3_14.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_18.jpg",
+     "full": "img/gallery/b3_18.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_20.jpg",
+     "full": "img/gallery/b3_20.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_01.jpg",
+     "full": "img/gallery/b4_01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_14.jpg",
+     "full": "img/gallery/b4_14.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_16.jpg",
+     "full": "img/gallery/b4_16.jpg",
+     "cap": ""
+    }
+   ]
   },
   {
-   "src": "img/g3.jpg",
-   "cap": "গণসংযোগ"
+   "id": 3,
+   "name": "২০২৩ সালের আন্দোলন",
+   "desc": "২০২৩ সালের আন্দোলন সংগ্রাম।",
+   "photos": [
+    {
+     "src": "img/gallery/t/b2_10.jpg",
+     "full": "img/gallery/b2_10.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_11.jpg",
+     "full": "img/gallery/b2_11.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_13.jpg",
+     "full": "img/gallery/b2_13.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_15.jpg",
+     "full": "img/gallery/b2_15.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_16.jpg",
+     "full": "img/gallery/b2_16.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_17.jpg",
+     "full": "img/gallery/b2_17.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_18.jpg",
+     "full": "img/gallery/b2_18.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_20.jpg",
+     "full": "img/gallery/b2_20.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_02.jpg",
+     "full": "img/gallery/b3_02.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_03.jpg",
+     "full": "img/gallery/b3_03.jpg",
+     "cap": ""
+    }
+   ]
   },
   {
-   "src": "img/g4.jpg",
-   "cap": "শুভানুধ্যায়ীদের সাথে"
+   "id": 4,
+   "name": "আশ্রয়কেন্দ্র পরিদর্শন ও ত্রাণ",
+   "desc": "বন্যায় আশ্রয়কেন্দ্র পরিদর্শন, শুকনো খাবার ও ত্রাণ বিতরণে ডাঃ রফিক স্যার (বাংলাদেশ ডেব-এর সভাপতি)।",
+   "photos": [
+    {
+     "src": "img/gallery/t/b3_12.jpg",
+     "full": "img/gallery/b3_12.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_16.jpg",
+     "full": "img/gallery/b3_16.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_17.jpg",
+     "full": "img/gallery/b3_17.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_19.jpg",
+     "full": "img/gallery/b3_19.jpg",
+     "cap": ""
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "৫ই আগস্ট ও জুলাই আন্দোলন",
+   "desc": "৫ই আগস্ট ও জুলাই আন্দোলন।",
+   "photos": [
+    {
+     "src": "img/gallery/t/b1_16.jpg",
+     "full": "img/gallery/b1_16.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_17.jpg",
+     "full": "img/gallery/b1_17.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b1_18.jpg",
+     "full": "img/gallery/b1_18.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_04.jpg",
+     "full": "img/gallery/b3_04.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_10.jpg",
+     "full": "img/gallery/b4_10.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_11.jpg",
+     "full": "img/gallery/b4_11.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_12.jpg",
+     "full": "img/gallery/b4_12.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_13.jpg",
+     "full": "img/gallery/b4_13.jpg",
+     "cap": ""
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "name": "প্রোগ্রাম ও মিছিল",
+   "desc": "প্রোগ্রাম ও মিছিল।",
+   "photos": [
+    {
+     "src": "img/gallery/t/b4_03.jpg",
+     "full": "img/gallery/b4_03.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_04.jpg",
+     "full": "img/gallery/b4_04.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_06.jpg",
+     "full": "img/gallery/b4_06.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_07.jpg",
+     "full": "img/gallery/b4_07.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_08.jpg",
+     "full": "img/gallery/b4_08.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_09.jpg",
+     "full": "img/gallery/b4_09.jpg",
+     "cap": ""
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "name": "দোয়া ও মাহফিল",
+   "desc": "দেশনেত্রী বেগম খালেদা জিয়ার রোগমুক্তির জন্য দোয়া ও মাহফিল।",
+   "photos": [
+    {
+     "src": "img/gallery/t/b4_02.jpg",
+     "full": "img/gallery/b4_02.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_05.jpg",
+     "full": "img/gallery/b4_05.jpg",
+     "cap": ""
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "name": "দলীয় প্রোগ্রাম",
+   "desc": "দলীয় প্রোগ্রাম।",
+   "photos": [
+    {
+     "src": "img/g1.jpg",
+     "cap": "মহিলা উঠান বৈঠক"
+    },
+    {
+     "src": "img/gallery/t/b4_17.jpg",
+     "full": "img/gallery/b4_17.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_18.jpg",
+     "full": "img/gallery/b4_18.jpg",
+     "cap": ""
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "name": "রাজপথে আন্দোলন সংগ্রাম",
+   "desc": "রাজপথে আন্দোলন সংগ্রাম।",
+   "photos": [
+    {
+     "src": "img/gallery/t/b4_19.jpg",
+     "full": "img/gallery/b4_19.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_02.jpg",
+     "full": "img/gallery/b5_02.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_05.jpg",
+     "full": "img/gallery/b5_05.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_07.jpg",
+     "full": "img/gallery/b5_07.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_08.jpg",
+     "full": "img/gallery/b5_08.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_10.jpg",
+     "full": "img/gallery/b5_10.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_11.jpg",
+     "full": "img/gallery/b5_11.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_13.jpg",
+     "full": "img/gallery/b5_13.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_15.jpg",
+     "full": "img/gallery/b4_15.jpg",
+     "cap": ""
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "name": "বিএনপির প্রতিষ্ঠা বার্ষিকী",
+   "desc": "বিএনপির প্রতিষ্ঠা বার্ষিকী প্রোগ্রাম।",
+   "photos": [
+    {
+     "src": "img/gallery/t/b5_12.jpg",
+     "full": "img/gallery/b5_12.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_17.jpg",
+     "full": "img/gallery/b5_17.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_16.jpg",
+     "full": "img/gallery/b5_16.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_18.jpg",
+     "full": "img/gallery/b5_18.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_19.jpg",
+     "full": "img/gallery/b5_19.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_20.jpg",
+     "full": "img/gallery/b5_20.jpg",
+     "cap": ""
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "name": "এমপির সাথে সাক্ষাৎ",
+   "desc": "মাননীয় এমপির সাথে সাক্ষাৎ।",
+   "photos": [
+    {
+     "src": "img/g2.jpg",
+     "cap": "সহকর্মীদের সাথে"
+    },
+    {
+     "src": "img/g3.jpg",
+     "cap": "গণসংযোগ"
+    },
+    {
+     "src": "img/g4.jpg",
+     "cap": "শুভানুধ্যায়ীদের সাথে"
+    },
+    {
+     "src": "img/gallery/t/b1_03.jpg",
+     "full": "img/gallery/b1_03.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_01.jpg",
+     "full": "img/gallery/b2_01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_09.jpg",
+     "full": "img/gallery/b2_09.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b2_14.jpg",
+     "full": "img/gallery/b2_14.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_01.jpg",
+     "full": "img/gallery/b3_01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_10.jpg",
+     "full": "img/gallery/b3_10.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b3_15.jpg",
+     "full": "img/gallery/b3_15.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b4_20.jpg",
+     "full": "img/gallery/b4_20.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_01.jpg",
+     "full": "img/gallery/b5_01.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_03.jpg",
+     "full": "img/gallery/b5_03.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_04.jpg",
+     "full": "img/gallery/b5_04.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_06.jpg",
+     "full": "img/gallery/b5_06.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_09.jpg",
+     "full": "img/gallery/b5_09.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_14.jpg",
+     "full": "img/gallery/b5_14.jpg",
+     "cap": ""
+    },
+    {
+     "src": "img/gallery/t/b5_15.jpg",
+     "full": "img/gallery/b5_15.jpg",
+     "cap": ""
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "name": "সুমন ভাইয়ের কারাবরণ",
+   "desc": "সুমন ভাইয়ের কারাবরণ।",
+   "photos": [
+    {
+     "src": "img/gallery/t/b1_02.jpg",
+     "full": "img/gallery/b1_02.jpg",
+     "cap": ""
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "name": "নির্বাচনী প্রচারণা",
+   "desc": "আপকামিং — সামনের কার্যক্রম ধীরে ধীরে যুক্ত হবে।",
+   "photos": []
   }
  ],
  "videos": [],
