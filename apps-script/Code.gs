@@ -1,4 +1,4 @@
-const ADMIN_PW='sumonvai101010'; // ডেমো পাসওয়ার্ড। এখানে বদলান, তারপর নতুন version Deploy করুন।
+const ADMIN_PW='nmsadmin'; // অ্যাডমিন পাসওয়ার্ড। বদলালে নতুন version Deploy করুন।
 const j_=o=>ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);
 function doPost(e){
   const d=JSON.parse(e.postData.contents),s=SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];

@@ -32,7 +32,7 @@ $('bg').onclick=async()=>{const b=$('bg'),t0='✨ ব্যাকগ্রাউ
  b.textContent='⏳ লোড হচ্ছে…';
  try{const m=await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.6.0/+esm'),bl=await m.removeBackground(S.o.src,{progress:(k,c,t)=>b.textContent='⏳ '+Math.round(c/t*100)+'%'}),im=new Image();
   im.onload=()=>{S.i=im;S.tr=1;b.textContent='↩ আগের ছবি';ped()};im.src=URL.createObjectURL(bl)}catch(e){b.textContent=t0;toast('ব্যাকগ্রাউন্ড মোছা যায়নি — নিচের লিংকের সাইট ব্যবহার করুন');$('bl').open=true}};
-const TP=['১ · সোনালী সবুজ','২ · নীল আধুনিক','৩ · বিজয় পতাকা','৪ · সবুজ-হলুদ','৫ · রাজকীয় মেরুন','প্রোফাইল ফ্রেম'],ND=5;
+const TP=['১ · সার্বজনীন','২ · নীল আধুনিক','৩ · বিজয় পতাকা','৪ · সবুজ-হলুদ','৫ · রাজকীয় মেরুন','প্রোফাইল ফ্রেম'],ND=5;
 $('tp').innerHTML=TP.map((t,i)=>`<button data-i="${i}" class="${i?'':'on'}">${i<ND?'<canvas width="108" height="135"></canvas>':''}<span>${t}</span></button>`).join('');
 $('tp').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.t=+b.dataset.i;[...$('tp').children].forEach(c=>c.classList.toggle('on',c==b))};
 async function draw(t,c,nm){const[cp,sy,hr,hc,lt,...lp]=await Promise.all([img(CFG.photo),img(CFG.symbolImg),img(CFG.hero||CFG.photo),img(CFG.heroCut),img(CFG.late),...CFG.leaders.map(img)]);await document.fonts.load('700 30px BnEmbed');
@@ -50,26 +50,27 @@ async function draw(t,c,nm){const[cp,sy,hr,hc,lt,...lp]=await Promise.all([img(C
  sym=(cx,cy,h)=>{x.fillStyle='#fff';x.beginPath();x.roundRect(cx-h*1.1,cy-h/2-8,h*2.2,h+16,16);x.fill();if(sy){const s=Math.min(h/sy.height,h*2/sy.width);x.drawImage(sy,cx-sy.width*s/2,cy-sy.height*s/2,sy.width*s,sy.height*s)}else{x.fillStyle='#14211b';txt(x,CFG.symbol,cx,cy+h*.18,h*.6,h*2)}},
  sbg=(cx,cy,h)=>{if(sy){x.save();x.fillStyle='#fff';x.beginPath();x.arc(cx,cy,h*.62,0,7);x.fill();const s=Math.min(h/sy.height,h/sy.width);x.drawImage(sy,cx-sy.width*s/2,cy-sy.height*s/2,sy.width*s,sy.height*s);x.restore()}};
  nm=nm||'সমর্থক';
- if(t==0){const G='#c8962e',G2='#f0c75e';
-  let g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,C);g.addColorStop(.55,'#07382a');g.addColorStop(1,'#031a12');x.fillStyle=g;x.fillRect(0,0,W,H);
-  let rg=x.createRadialGradient(540,600,60,540,600,680);rg.addColorStop(0,'rgba(255,255,255,.22)');rg.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=rg;x.fillRect(0,0,W,H);
-  x.save();x.globalAlpha=.06;x.fillStyle='#fff';for(let i=-2;i<12;i++){x.beginPath();x.moveTo(i*120,0);x.lineTo(i*120+55,0);x.lineTo(i*120-475,H);x.lineTo(i*120-530,H);x.fill()}x.restore();
-  x.strokeStyle=G;x.lineWidth=6;x.strokeRect(22,22,W-44,H-44);x.lineWidth=2;x.strokeRect(38,38,W-76,H-76);
-  const gp=(i,cx,cy,r)=>pic(i,cx,cy,r,G,G2,6),
-  rp=(i,a,b,w,h,r)=>{x.save();sh(20);rr(a,b,w,h,r);x.fillStyle=G;x.fill();x.restore();x.save();rr(a+5,b+5,w-10,h-10,r-4);x.clip();if(i){const s=Math.max((w-10)/i.width,(h-10)/i.height);x.drawImage(i,a+5+(w-10-i.width*s)/2,b+5,i.width*s,i.height*s)}else{x.fillStyle='#cfd8d3';x.fillRect(a,b,w,h)}x.restore()},
-  plate=(cx,y,w,t1)=>{const h=72;x.save();sh(14,.5);rr(cx-w/2,y,w,h,22);x.fillStyle=lg(0,y,0,y+h,['#0f7a59','#053a2a']);x.fill();x.restore();rr(cx-w/2,y,w,h,22);x.lineWidth=4;x.strokeStyle=G;x.stroke();x.fillStyle='#fff';txt(x,t1,cx,y+50,42,w-34,'700')};
-  x.fillStyle=G2;txt(x,bis,540,92,42,W-160,'600');
-  x.save();sh(12,.4);rr(90,118,900,76,38);x.fillStyle=lg(0,118,0,194,[G2,G]);x.fill();x.restore();x.fillStyle='#0a3d2d';txt(x,CFG.party||CFG.union,540,172,46,840,'700');
-  gp(lp[0],118,290,58);gp(lp[1],250,290,58);gp(lp[2],382,290,58);
-  x.fillStyle='#fff';txt(x,CFG.union,676,285,44,380);x.fillStyle=G2;txt(x,CFG.post,676,338,32,380,'600');
-  dun(960,285,66,G,G2);
-  rp(hr,85,420,330,440,30);plate(250,840,410,CFG.name);
-  spic(745,712,190,G,G2);plate(745,885,420,nm);
-  x.save();sh(10,.5);x.fillStyle='#fff';txt(x,pm,540,1016,62,W-120);x.restore();
-  x.fillStyle=G2;txt(x,(CFG.tag1||'')+' '+(CFG.tag2||''),540,1078,46,W-120);
-  x.save();sh(16,.5);rr(60,1110,960,190,30);x.fillStyle=lg(0,1110,0,1300,[G2,G]);x.fill();x.restore();
-  if(sy){const w=140;x.drawImage(sy,90,1135,w,w*sy.height/sy.width)}
-  x.fillStyle='#0a3d2d';txt(x,CFG.symbol,620,1210,68,720,'700');txt(x,CFG.slogan,620,1268,38,720,'600')}
+ if(t==0){ // সার্বজনীন — প্রতীক/দল/নেতা ছাড়া
+  x.fillStyle=lg(0,0,0,H,['#5fd0c0','#d9f5ee','#ffffff']);x.fillRect(0,0,W,H);
+  x.fillStyle='rgba(255,255,255,.55)';[[860,470,330],[150,820,220],[1010,900,150]].forEach(a=>{x.beginPath();x.arc(a[0],a[1],a[2],0,7);x.fill()});
+  x.save();x.globalAlpha=.07;x.fillStyle='#0a5c43';for(let i=0;i<9;i++){x.beginPath();x.moveTo(i*150,0);x.lineTo(i*150+60,0);x.lineTo(i*150-340,H);x.lineTo(i*150-400,H);x.fill()}x.restore();
+  man(352,1062,806);
+  x.save();sh(26,.45);x.beginPath();x.moveTo(0,1005);x.bezierCurveTo(300,885,720,1120,W,950);x.lineTo(W,H);x.lineTo(0,H);x.closePath();x.fillStyle=lg(0,900,0,H,['#0d7a57','#04271c']);x.fill();x.restore();
+  x.lineWidth=9;x.strokeStyle='#fff';x.beginPath();x.moveTo(0,984);x.bezierCurveTo(300,864,720,1100,W,930);x.stroke();
+  pill(540,28,520,56,'#0a4a37','#fff',3);x.fillStyle='#fff';txt(x,bis,540,66,32,480,'600');
+  dun(540,196,104,'#fff','#0f7a59');
+  x.fillStyle='#e11d2e';txt(x,'আসন্ন',850,345,46,380,'700');
+  st(CFG.union,850,410,60,380,'#0a3d2d','#fff',0);st('পরিষদ',850,470,54,420,'#0a3d2d','#fff',0);
+  pill(850,492,380,64,lg(0,492,380,492,['#d6121f','#8a0b2a']),'#fff',4);x.fillStyle='#fff';txt(x,'নির্বাচনে',850,543,50,340,'700');
+  x.save();sh(14,.45);x.beginPath();x.moveTo(660,575);x.lineTo(1030,575);x.lineTo(1010,615);x.lineTo(1030,655);x.lineTo(660,655);x.lineTo(680,615);x.closePath();x.fillStyle=lg(0,575,370,655,['#f9d423','#f2870d']);x.fill();x.restore();st('চেয়ারম্যান',845,637,58,320,'#7a0a2a','#fff',0);
+  pill(850,672,230,48,'#117a52','#fff',3);x.fillStyle='#fff';txt(x,'পদপ্রার্থী',850,706,36,200,'700');
+  x.save();sh(14,.4);x.fillStyle='#fff';x.beginPath();x.arc(850,845,118,0,7);x.fill();x.restore();ring(850,845,108,'#0f7a59',6);
+  spic(850,845,98,'#fff','#fff');
+  pill(850,958,330,50,'#fff','#0f7a59',4);x.fillStyle='#0a3d2d';txt(x,nm,850,994,36,300);
+  st(pm,540,1120,64,1000,'#ffe23a','#000',10);
+  st(CFG.name,540,1190,54,1000,'#fff','#000',6);
+  x.fillStyle='#fff';txt(x,'আপনাদের দোয়া ও সমর্থন প্রত্যাশী',540,1250,42,980,'600');
+  x.fillStyle=lg(0,1292,W,1292,['#0f7a59','#c8962e']);x.fillRect(0,1292,W,58);x.fillStyle='#fff';txt(x,foot,540,1332,30,960,'600')}
  else if(t==1){ // নীল আধুনিক
   x.fillStyle=lg(0,0,0,H,['#6cc3f0','#dff3ff','#ffffff']);x.fillRect(0,0,W,H);
   x.fillStyle='rgba(255,255,255,.55)';[[800,430,340],[170,820,230],[1010,880,150]].forEach(a=>{x.beginPath();x.arc(a[0],a[1],a[2],0,7);x.fill()});
@@ -99,10 +100,8 @@ async function draw(t,c,nm){const[cp,sy,hr,hc,lt,...lp]=await Promise.all([img(C
   man(690,980,860);
   x.save();sh(20,.4);x.beginPath();x.moveTo(0,740);x.bezierCurveTo(300,660,650,880,W,700);x.lineTo(W,H);x.lineTo(0,H);x.closePath();x.fillStyle=lg(0,650,0,H,['#f4faf4','#cfe8d4']);x.fill();x.restore();
   x.fillStyle='#ffe9a8';txt(x,bis,540,70,40,W-200,'600');
-  pic(lp[0],112,180,62,'#fff','#fff',5);pic(lp[1],250,180,62,'#fff','#fff',5);pic(lp[2],181,318,62,'#fff','#fff',5);
-  spic(150,545,95,'#fff','#fff');pill(150,660,270,58,'#fff','#d4202c',4);x.fillStyle='#0b3d2d';txt(x,nm,150,701,36,240);
-  // দুনু — নিচের বাম কোণে বড় প্রতিকৃতি
-  if(lt){x.save();sh(26,.5);rr(30,845,360,360,34);x.fillStyle='#c8962e';x.fill();x.restore();x.save();rr(38,853,344,344,28);x.clip();x.drawImage(lt,38,853,344,344);x.restore();rr(38,853,344,344,28);x.lineWidth=5;x.strokeStyle='#f6dc8b';x.stroke()}
+  dun(135,165,100,'#fff','#ffe27a');[0,1,2].forEach(k=>pic(lp[k],300+k*112,150,50,'#fff','#fff',5));
+  spic(190,880,112,'#fff','#fff');pill(190,1010,290,58,'#fff','#d4202c',4);x.fillStyle='#0b3d2d';txt(x,nm,190,1051,36,260);
   x.fillStyle='#0b3d2d';x.textAlign='right';{x.font='700 40px '+F;x.fillText('আসন্ন',1040,790);st(CFG.union+' পরিষদ',1040,848,44,600,'#0b3d2d','#fff',0)}x.textAlign='center';
   st('নির্বাচনে',740,958,110,560,'#0b5d3f','#fff',12);
   x.save();sh(10,.35);x.fillStyle='#c8202d';x.fillRect(560,975,520,86);x.restore();x.fillStyle='#fff';txt(x,'চেয়ারম্যান',830,1042,68,440,'700');
@@ -117,14 +116,13 @@ async function draw(t,c,nm){const[cp,sy,hr,hc,lt,...lp]=await Promise.all([img(C
   x.save();x.fillStyle='rgba(255,255,255,.75)';for(let r=0;r<22;r++)for(let q=0;q<14;q++){const R=Math.max(0,7-(r+q)*.22);if(R>.8){x.beginPath();x.arc(24+q*20+(r%2)*10,24+r*20,R,0,7);x.fill()}}x.restore();
   man(790,1060,860);
   pill(560,30,520,58,'#0d2f7a','#fff',3);x.fillStyle='#fff';txt(x,bis,560,70,32,480,'600');
-  dun(100,130,72,'#fff','#13854f');
+  dun(115,150,86,'#fff','#13854f');[0,1,2].forEach(k=>pic(lp[k],265+k*104,150,46,'#fff','#13854f',4));
   x.textAlign='left';x.fillStyle='#d6121f';txt(x,'আসন্ন',40,262,50,300,'700');st('ইউনিয়ন',40,330,64,480,'#d6121f','#fff',0);st('পরিষদ',40,396,56,480,'#d6121f','#fff',0);x.textAlign='center';
   [['নি','#d6121f'],['র্বা','#13854f'],['চ','#d6121f'],['নে','#13854f']].forEach((a,k)=>{const cx=92+k*96;x.save();sh(8,.3);x.fillStyle='#fff';x.beginPath();x.arc(cx,478,42,0,7);x.fill();x.restore();ring(cx,478,40,a[1],7);x.fillStyle='#0d2f7a';txt(x,a[0],cx,498,54,66,'700')});
   x.save();sh(10,.35);rr(30,550,420,76,10);x.fillStyle='#117a52';x.fill();x.restore();x.fillStyle='#fff';txt(x,CFG.union,240,606,48,390,'700');
   x.save();sh(14,.45);x.beginPath();x.moveTo(30,650);x.lineTo(470,650);x.lineTo(500,715);x.lineTo(470,780);x.lineTo(30,780);x.closePath();x.fillStyle=lg(0,650,0,780,['#a3081f','#5e0716']);x.fill();x.restore();st('চেয়ারম্যান',255,745,76,400,'#ffd43b','#2b0007',6);
   pill(170,795,250,56,'#fff','#13854f',4);x.fillStyle='#117a52';txt(x,'পদপ্রার্থী',170,835,40,220,'700');
-  [0,1,2].forEach(k=>pic(lp[k],70+k*92,905,38,'#fff','#13854f',4));
-  x.save();sh(14,.4);x.fillStyle='#fff';x.beginPath();x.arc(405,895,98,0,7);x.fill();x.restore();ring(405,895,91,'#d6121f',8);spic(405,895,78,'#fff','#fff');
+    x.save();sh(14,.4);x.fillStyle='#fff';x.beginPath();x.arc(405,895,98,0,7);x.fill();x.restore();ring(405,895,91,'#d6121f',8);spic(405,895,78,'#fff','#fff');
   x.save();sh(14,.5);rr(40,1020,1000,120,60);x.fillStyle=lg(0,0,W,0,['#e11d8f','#6a1b9a']);x.fill();x.restore();x.fillStyle='#fff';txt(x,CFG.name,540,1100,72,940,'700');
   st('আপনাদের সকলের দোয়া ও সমর্থন প্রত্যাশী।',540,1196,54,1000,'#e8321e','#fff',8);
   x.fillStyle='#0d2f7a';x.fillRect(0,1262,W,88);x.fillStyle='#fff';txt(x,pm,540,1300,38,1000,'700');x.fillStyle='#ffd43b';txt(x,foot,540,1336,26,1000,'600')}
@@ -140,8 +138,8 @@ async function draw(t,c,nm){const[cp,sy,hr,hc,lt,...lp]=await Promise.all([img(C
   x.save();sh(30,.6);arch();x.fillStyle=G;x.fill();x.restore();
   x.save();x.translate(0,0);arch();x.save();x.clip();x.fillStyle=lg(0,ay,0,ay+ah,['#fff4d6','#f0c75e']);x.fillRect(ax-10,ay-10,aw+20,ah+20);man(540,ay+ah+10,ah+40);x.restore();x.restore();
   arch();x.lineWidth=10;x.strokeStyle=G2;x.stroke();
-  [0,1,2].forEach(k=>pic(lp[k],150,350+k*165,68,G,G2,6));
-  dun(930,265,92,G,G2);
+  [0,1,2].forEach(k=>pic(lp[k],150,345+k*160,58,G,G2,6));
+  dun(930,310,100,G,G2);
   spic(930,560,92,G,G2);pill(915,675,220,56,lg(0,0,0,56,['#0f7a59','#053a2a']),G,3);x.fillStyle='#fff';txt(x,nm,915,714,34,196);
   x.save();sh(12,.5);x.beginPath();x.moveTo(150,850);x.lineTo(930,850);x.lineTo(960,895);x.lineTo(930,940);x.lineTo(150,940);x.lineTo(120,895);x.closePath();x.fillStyle=lg(0,850,0,940,[G2,G]);x.fill();x.restore();x.fillStyle='#4a0a1d';txt(x,CFG.post,540,918,56,700,'700');
   st(CFG.name,540,1032,76,980,'#fff','#000',0);

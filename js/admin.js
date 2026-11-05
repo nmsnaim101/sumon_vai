@@ -1,8 +1,8 @@
 // এজেন্ট পেজের অ্যাডমিন ট্যাব: ফর্মে আসা বার্তা দেখায়। পাসওয়ার্ড মেলানো হয় Apps Script-এ (apps-script/Code.gs)
 let admPW=null,admRows=[],admSeen=null;
 const admSay=m=>$('ae')?$('ae').textContent=m:toast(m),admTy=['মতামত','সমস্যা জানান','স্বেচ্ছাসেবক হতে চাই','ভুল তথ্য','ভোট দিয়েছে'];
-function adm(){if(admPW)return;$('v3').innerHTML=`<div class="h2" style="margin-top:0">অ্যাডমিন প্যানেল</div><p class="m" style="margin:0 0 6px">ফর্মে আসা মতামত, সমস্যা ও স্বেচ্ছাসেবকের তালিকা।</p><label for="ap">অ্যাডমিন পাসওয়ার্ড</label><input id="ap" type="password" autocomplete="off"><button class="pri" id="ag">খুলুন</button><p class="err" id="ae"></p>`;
- $('ag').onclick=()=>admLoad($('ap').value);$('ap').onkeydown=e=>{if(e.key==='Enter')admLoad($('ap').value)}}
+function adm(){if(admPW)return;$('v3').innerHTML=`<div class="h2" style="margin-top:0">অ্যাডমিন প্যানেল</div><p class="m" style="margin:0 0 6px">ফর্মে আসা মতামত, সমস্যা ও স্বেচ্ছাসেবকের তালিকা।</p><label for="apw">অ্যাডমিন পাসওয়ার্ড</label><input id="apw" type="password" autocomplete="off"><button class="pri" id="ag">খুলুন</button><p class="err" id="ae"></p>`;
+ $('ag').onclick=()=>admLoad($('apw').value);$('apw').onkeydown=e=>{if(e.key==='Enter')admLoad($('apw').value)}}
 async function admLoad(pw){if(!CFG.formUrl)return admSay('ফর্মের Apps Script লিংক (formUrl) এখনো বসানো হয়নি।');if(!pw)return admSay('পাসওয়ার্ড লিখুন।');admSay('লোড হচ্ছে…');
  try{const r=await(await fetch(CFG.formUrl,{method:'POST',body:JSON.stringify({action:'list',pw})})).json();if(!r.ok)return admSay(r.err||'পাসওয়ার্ড ভুল।');admPW=pw;admShow(r.rows)}
  catch(x){admSay('ডেটা আনা যায়নি। Apps Script ঠিকমতো Deploy হয়েছে কিনা দেখুন।')}}
