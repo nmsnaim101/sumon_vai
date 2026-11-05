@@ -10,7 +10,7 @@ photo:'img/candidate.jpg',hero:'img/hero.jpg',heroCut:'img/hero_cut.png',late:'i
 leaders:['img/leader1.jpg','img/leader2.jpg','img/leader3.jpg'],   // খালেদা জিয়া, তারেক রহমান, বরকত উল্ল্যা বুলু
 phone:'০১৭৭৫-০৭৬৬১৭',tel:'+8801775076617',wa:"8801775076617",office:'০১৬২৩-৮৩২৭৫৪',contact:'আহমেদ সাজু',
 fb:"https://www.facebook.com/share/1CML2iWh2H/",video:'',   // video: ফেসবুক ভিডিওর লিংক বসালে হোমে ভিডিও বাটন আসবে
-formUrl:"https://script.google.com/macros/s/AKfycbxkxDVJuAzB9RqJChq3tC8dmTfAiPo1UgOoYSWVpFN1i4M7RZVmyjqgIJS292W2Cm_j/exec",   // formUrl: Apps Script Web app URL (apps-script/README.txt দেখুন)
+formUrl:"https://script.google.com/macros/s/AKfycbxCRwStjFoULKfBJXVh865vYv7UuZhgZIw-d3VJi9xEr-ZbJwVi4RRjw4YPx8FIEZwaRA/exec",   // formUrl: Apps Script Web app URL (apps-script/README.txt দেখুন)
 
 site:'https://sumonvai-seven.vercel.app/',
 voteDate:'',   // ভোটের তারিখ ও সময় লিখলে গাইডে দেখাবে, যেমন: '৩০ নভেম্বর ২০২৬, সকাল ৮টা–বিকাল ৪টা'
