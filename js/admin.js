@@ -1,16 +1,57 @@
-// এজেন্ট পেজের অ্যাডমিন ট্যাব: ফর্মে আসা বার্তা দেখায়। পাসওয়ার্ড মেলানো হয় Apps Script-এ (apps-script/Code.gs)
-let admPW=null,admRows=[],admSeen=null;
-const admSay=m=>$('ae')?$('ae').textContent=m:toast(m),admTy=['মতামত','সমস্যা জানান','স্বেচ্ছাসেবক হতে চাই','ভুল তথ্য','ভোট দিয়েছে'];
-function adm(){if(admPW)return;$('v3').innerHTML=`<div class="h2" style="margin-top:0">অ্যাডমিন প্যানেল</div><p class="m" style="margin:0 0 6px">ফর্মে আসা মতামত, সমস্যা ও স্বেচ্ছাসেবকের তালিকা।</p><label for="apw">অ্যাডমিন পাসওয়ার্ড</label><input id="apw" type="password" autocomplete="off"><button class="pri" id="ag">খুলুন</button><p class="err" id="ae"></p>`;
- $('ag').onclick=()=>admLoad($('apw').value);$('apw').onkeydown=e=>{if(e.key==='Enter')admLoad($('apw').value)}}
-async function admLoad(pw){if(!CFG.formUrl)return admSay('ফর্মের Apps Script লিংক (formUrl) এখনো বসানো হয়নি।');if(!pw)return admSay('পাসওয়ার্ড লিখুন।');admSay('লোড হচ্ছে…');
- try{const r=await(await fetch(CFG.formUrl,{method:'POST',body:JSON.stringify({action:'list',pw})})).json();if(!r.ok)return admSay(r.err||'পাসওয়ার্ড ভুল।');admPW=pw;admShow(r.rows)}
- catch(x){admSay('ডেটা আনা যায়নি। Apps Script ঠিকমতো Deploy হয়েছে কিনা দেখুন।')}}
-function admShow(rows,f=''){admRows=rows;if(admSeen===null){try{admSeen=+localStorage.getItem('admSeen')||0;localStorage.setItem('admSeen',Date.now())}catch(e){admSeen=0}}const nw=r=>new Date(r[0]).getTime()>admSeen;const l=rows.filter(r=>!f||r[1]==f),n=t=>a2b(rows.filter(r=>r[1]==t).length),ph=r=>String(r[3]||'').replace(/\D/g,'');
- $('v3').innerHTML=`<div class="h2" style="margin-top:0">অ্যাডমিন · মোট ${a2b(rows.length)}টি বার্তা · নতুন ${a2b(rows.filter(nw).length)}টি</div>
+// এজেন্ট পেজের অ্যাডমিন ট্যাব। লগিন: পাসওয়ার্ড + Gmail-এ আসা কোড (Apps Script: apps-script/Code.gs)
+let admPW=null,admTok=null,admTab='msg',admRows=[],admSeen=null,admEv=[],admSt={},admPr=[];
+const admSay=m=>$('ae')?$('ae').textContent=m:toast(m),admTy=['মতামত','সমস্যা জানান','স্বেচ্ছাসেবক হতে চাই','স্লিপ অনুরোধ','ভুল তথ্য','ভোট দিয়েছে'],STS=['নতুন','চলমান','সমাধান হয়েছে'];
+const IS='width:100%;min-height:42px;border:1.5px solid var(--ln,#ccd);border-radius:10px;padding:6px 10px;font:inherit;background:transparent;color:inherit;margin:4px 0';
+async function admApi(b){if(!CFG.formUrl)throw new Error('formUrl নেই');const rs=await fetch(CFG.formUrl,{method:'POST',body:JSON.stringify(Object.assign({token:admTok,pw:admPW},b))}),tx=await rs.text();let r;try{r=JSON.parse(tx)}catch(e){throw new Error('Apps Script থেকে ভুল উত্তর: '+tx.replace(/<[^>]*>/g,' ').trim().slice(0,80)+' — নতুন Code.gs পেস্ট করে New version Deploy করেছেন কিনা দেখুন।')}
+ if(r.relogin){admTok=null;adm();throw new Error(r.err)}return r}
+function adm(){if(admTok)return admMain();
+ $('v3').innerHTML=`<div class="h2" style="margin-top:0">🔐 অ্যাডমিন লগিন</div><p class="m" style="margin:0 0 6px">পাসওয়ার্ড দিলে আপনার Gmail-এ একটি ৬ ডিজিটের কোড যাবে। প্রতিবার নতুন কোড আসে।</p><label for="apw">পাসওয়ার্ড</label><input id="apw" type="password" autocomplete="off"><button class="pri" id="ag">কোড পাঠান</button><p class="err" id="ae"></p>`;
+ $('ag').onclick=admStep1;$('apw').onkeydown=e=>{if(e.key==='Enter')admStep1()}}
+async function admStep1(){const pw=$('apw').value;if(!pw)return admSay('পাসওয়ার্ড লিখুন।');admSay('কোড পাঠানো হচ্ছে…');admPW=pw;
+ try{const r=await admApi({action:'otp1'});if(!r.ok){admPW=null;return admSay(r.err)}
+  $('v3').innerHTML=`<div class="h2" style="margin-top:0">📧 কোড দিন</div><p class="m" style="margin:0 0 6px">${esc(r.mail)} ঠিকানায় কোড পাঠানো হয়েছে (১০ মিনিট চলবে)। স্প্যাম ফোল্ডারও দেখুন।</p><input id="aco" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="৬ ডিজিটের কোড" style="${IS};font-size:22px;letter-spacing:6px;text-align:center"><button class="pri" id="ag">লগিন করুন</button><button class="pri" id="an" style="background:var(--mut);margin-top:8px">নতুন কোড পাঠান</button><p class="err" id="ae"></p>`;
+  $('ag').onclick=admStep2;$('aco').onkeydown=e=>{if(e.key==='Enter')admStep2()};$('an').onclick=()=>{admPW=null;adm()};$('aco').focus()}
+ catch(x){admPW=null;admSay(x.message.indexOf('Failed')>=0||x.message.indexOf('fetch')>=0?'Apps Script লিংকে পৌঁছানো যায়নি। Deploy-এ Who has access: Anyone আছে কিনা এবং config.js-এর formUrl ঠিক কিনা দেখুন।':x.message)}}
+async function admStep2(){const code=($('aco').value||'').replace(/\D/g,'');if(code.length!==6)return admSay('৬ ডিজিটের কোড লিখুন।');admSay('যাচাই হচ্ছে…');
+ try{const r=await admApi({action:'otp2',code});if(!r.ok){if(r.expired){admPW=null;setTimeout(adm,1500)}return admSay(r.err)}admTok=r.token;admMain()}catch(x){admSay(x.message)}}
+function admTabs(){const T=[['msg','📩 বার্তা'],['vol','🙋 স্বেচ্ছাসেবক'],['pr','🛠️ সমস্যা'],['ev','🗓️ কর্মসূচি'],['st','⚙️ সেটিং']];
+ return `<div class="ch" id="atb">${T.map(t=>`<button data-t="${t[0]}"${admTab==t[0]?' class="on"':''}>${t[1]}</button>`).join('')}<button data-t="out">বের হন</button></div><div id="abd"></div>`}
+async function admMain(){$('v3').innerHTML=admTabs();$('atb').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.t==='out'){admTok=admPW=null;admRows=[];admSeen=null;return adm()}admTab=b.dataset.t;admMain()};
+ const bd=$('abd');bd.innerHTML='<p class="m">লোড হচ্ছে…</p>';
+ try{
+  if(admTab==='msg'||admTab==='vol'){const r=await admApi({action:'list'});admRows=r.rows||[];admTab==='msg'?admShow(admRows):admVol(admRows)}
+  else if(admTab==='ev'){const r=await admApi({action:'ev_get'});admEv=r.events||[];admEvShow()}
+  else if(admTab==='pr'){const r=await admApi({action:'pr_list'});admPr=r.rows||[];admPrShow()}
+  else if(admTab==='st'){const r=await admApi({action:'st_get'});admSt=r.settings||{};admStShow()}
+ }catch(x){bd.innerHTML='<p class="err">'+esc(x.message)+'</p>'}}
+const admClk=e=>{const b=e.target.closest('[data-u]');if(!b)return;b.dataset.u.startsWith('tel')?location.href=b.dataset.u:open(b.dataset.u,'_blank','noopener')};
+const admCt=r=>{const p=String(r[3]||'').replace(/\D/g,'');return p?`<div class="ac" style="padding:0"><button data-u="tel:${p}">📞 ${esc(r[3])}</button><button data-u="https://wa.me/${p.replace(/^0/,'880')}">💬 হোয়াটসঅ্যাপ</button></div>`:''};
+function admShow(rows,f=''){admRows=rows;if(admSeen===null){try{admSeen=+localStorage.getItem('admSeen')||0;localStorage.setItem('admSeen',Date.now())}catch(e){admSeen=0}}const nw=r=>new Date(r[0]).getTime()>admSeen;const l=rows.filter(r=>!f||r[1]==f),n=t=>a2b(rows.filter(r=>r[1]==t).length);
+ $('abd').innerHTML=`<div class="h2" style="margin-top:0">মোট ${a2b(rows.length)}টি বার্তা · নতুন ${a2b(rows.filter(nw).length)}টি</div>
 <div class="ch" id="af"><button data-f=""${f?'':' class="on"'}>সব</button>${admTy.map(t=>`<button data-f="${t}"${f==t?' class="on"':''}>${t} (${n(t)})</button>`).join('')}</div>
-<div id="al">${l.map(r=>`<article class="card r" style="padding:12px;margin-top:10px"><div class="sub">${nw(r)?'<span class="tag m">নতুন</span> ':''}${esc(new Date(r[0]).toLocaleString('bn-BD'))} · <b>${esc(r[1])}</b></div><div class="nm">${esc(r[2])}${r[4]?' · '+esc(r[4]):''}</div><p style="margin:6px 0">${esc(r[5])}</p>${ph(r)?`<div class="ac" style="padding:0"><button data-u="tel:${ph(r)}">📞 ${esc(r[3])}</button><button data-u="https://wa.me/${ph(r).replace(/^0/,'880')}">💬 হোয়াটসঅ্যাপ</button></div>`:''}</article>`).join('')||'<div class="em">কোনো বার্তা নেই।</div>'}</div>
-<div class="g2"><button class="pri" id="ar">🔄 রিফ্রেশ</button><button class="pri" id="ao" style="background:var(--mut)">বের হন</button></div>`;
- $('af').onclick=e=>{const b=e.target.closest('button');if(b)admShow(admRows,b.dataset.f)};
- $('al').onclick=e=>{const b=e.target.closest('[data-u]');if(!b)return;b.dataset.u.startsWith('tel')?location.href=b.dataset.u:open(b.dataset.u,'_blank','noopener')};
- $('ar').onclick=()=>admLoad(admPW);$('ao').onclick=()=>{admPW=null;admRows=[];admSeen=null;adm()}}
+<div id="al">${l.map(r=>`<article class="card r" style="padding:12px;margin-top:10px"><div class="sub">${nw(r)?'<span class="tag m">নতুন</span> ':''}${esc(new Date(r[0]).toLocaleString('bn-BD'))} · <b>${esc(r[1])}</b></div><div class="nm">${esc(r[2])}${r[4]?' · '+esc(r[4]):''}</div><p style="margin:6px 0">${esc(r[5])}</p>${admCt(r)}</article>`).join('')||'<div class="em">কোনো বার্তা নেই।</div>'}</div><button class="pri" id="ar">🔄 রিফ্রেশ</button>`;
+ $('af').onclick=e=>{const b=e.target.closest('button');if(b)admShow(admRows,b.dataset.f)};$('al').onclick=admClk;$('ar').onclick=admMain}
+// স্বেচ্ছাসেবক: ওয়ার্ড অনুযায়ী
+function admVol(rows){const v=rows.filter(r=>r[1]==='স্বেচ্ছাসেবক হতে চাই'),g={};v.forEach(r=>{const w=r[4]||'ওয়ার্ড জানা নেই';(g[w]=g[w]||[]).push(r)});
+ const ks=Object.keys(g).sort((a,b)=>a.localeCompare(b,'bn',{numeric:true}));
+ $('abd').innerHTML=`<div class="h2" style="margin-top:0">স্বেচ্ছাসেবক · মোট ${a2b(v.length)} জন</div><div class="ch">${ks.map(k=>`<button onclick="document.getElementById('vg${ks.indexOf(k)}').scrollIntoView({behavior:'smooth'})">${esc(k)} (${a2b(g[k].length)})</button>`).join('')}</div>`+
+ (ks.map((k,i)=>`<div class="h2" id="vg${i}" style="margin-top:14px">${esc(k)} — ${a2b(g[k].length)} জন</div>`+g[k].map(r=>`<article class="card r" style="padding:12px;margin-top:8px"><div class="nm">${esc(r[2])}</div><p style="margin:4px 0" class="m">${esc(r[5])}</p>${admCt(r)}</article>`).join('')).join('')||'<div class="em">এখনো কোনো স্বেচ্ছাসেবক নেই।</div>')+`<button class="pri" id="avc" style="margin-top:10px">📋 তালিকা কপি করুন</button>`;
+ $('abd').onclick=admClk;$('avc').onclick=()=>{const t=ks.map(k=>k+':\n'+g[k].map(r=>'  '+r[2]+' — '+r[3]).join('\n')).join('\n\n');navigator.clipboard&&navigator.clipboard.writeText(t).then(()=>toast('কপি হয়েছে ✓'))}}
+// কর্মসূচি
+function admEvShow(){const L=admEv.slice().sort((a,b)=>String(a.d).localeCompare(String(b.d)));admEv=L;
+ $('abd').innerHTML=`<div class="h2" style="margin-top:0">আসন্ন কর্মসূচি</div><p class="m" style="margin:0 0 6px">এখানে বদলালে ওয়েবসাইটে দেখাবে; শিটে ব্যাকআপ থাকবে।</p><div id="evl">${L.map((e,i)=>`<article class="card r" style="padding:12px;margin-top:10px"><label>তারিখ<input type="date" data-i="${i}" data-k="d" value="${esc(e.d)}" style="${IS}"></label><label>সময়<input data-i="${i}" data-k="t" value="${esc(e.t)}" placeholder="যেমন: বিকাল ৪টা" style="${IS}"></label><label>স্থান<input data-i="${i}" data-k="p" value="${esc(e.p)}" placeholder="যেমন: রাজগঞ্জ বাজার" style="${IS}"></label><label>কর্মসূচির নাম<input data-i="${i}" data-k="n" value="${esc(e.n)}" style="${IS}"></label><label>বিবরণ (ঐচ্ছিক)<input data-i="${i}" data-k="x" value="${esc(e.x)}" style="${IS}"></label><button class="pri" data-del="${i}" style="background:#b3261e;margin-top:6px">🗑 মুছুন</button></article>`).join('')||'<div class="em">কোনো কর্মসূচি নেই।</div>'}</div>
+<button class="pri" id="eva" style="margin-top:10px">➕ নতুন কর্মসূচি</button><button class="pri" id="evs" style="margin-top:8px">💾 সংরক্ষণ করুন</button><p class="err" id="ae"></p>`;
+ $('evl').oninput=e=>{const t=e.target;if(t.dataset.k)admEv[+t.dataset.i][t.dataset.k]=t.value};
+ $('evl').onclick=e=>{const b=e.target.closest('[data-del]');if(b&&confirm('মুছে ফেলবেন?')){admEv.splice(+b.dataset.del,1);admEvShow()}};
+ $('eva').onclick=()=>{admEv.push({id:'e'+Date.now(),d:'',t:'',p:'',n:'',x:''});admEvShow();scrollTo(0,document.body.scrollHeight)};
+ $('evs').onclick=async()=>{const ok=admEv.filter(e=>e.d&&e.n);if(ok.length<admEv.length&&!confirm('তারিখ বা নাম ফাঁকা থাকা কর্মসূচি বাদ যাবে। চালিয়ে যাবেন?'))return;admSay('সংরক্ষণ হচ্ছে…');try{const r=await admApi({action:'ev_save',events:ok});admSay(r.ok?'সংরক্ষিত ✓ — ওয়েবসাইটে এক মিনিটের মধ্যে দেখাবে।':r.err)}catch(x){admSay(x.message)}}}
+// সমস্যা ট্র্যাকার
+function admPrShow(){const L=admPr;
+ $('abd').innerHTML=`<div class="h2" style="margin-top:0">নাগরিকের সমস্যা · ${a2b(L.length)}টি</div><p class="m" style="margin:0 0 6px">অবস্থা বদলে সংরক্ষণ করুন। নাগরিক নম্বর দিয়ে সাইটে অবস্থা দেখতে পাবেন।</p>`+(L.map((r,i)=>`<article class="card r" style="padding:12px;margin-top:10px"><div class="sub"><b>নম্বর ${a2b(r[0])}</b> · ${esc(new Date(r[1]).toLocaleString('bn-BD'))}${r[4]?' · '+esc(r[4]):''}</div><div class="nm">${esc(r[2])} — ${esc(r[5])}</div><p style="margin:6px 0">${esc(r[6])}</p>${admCt(r)}<select data-i="${i}" data-k="s" style="${IS}">${STS.map(s=>`<option${r[7]==s?' selected':''}>${s}</option>`).join('')}</select><input data-i="${i}" data-k="n" value="${esc(r[8]||'')}" placeholder="মন্তব্য (নাগরিক দেখতে পাবেন)" style="${IS}"><button class="pri" data-sv="${i}">💾 সংরক্ষণ</button></article>`).join('')||'<div class="em">এখনো কোনো সমস্যা জমা পড়েনি।</div>');
+ $('abd').onclick=async e=>{admClk(e);const b=e.target.closest('[data-sv]');if(!b)return;const i=+b.dataset.sv,c=b.parentNode,st=c.querySelector('select').value,nt=c.querySelector('input').value;b.textContent='…';
+  try{const r=await admApi({action:'pr_set',id:String(L[i][0]),status:st,note:nt});if(r.ok){L[i][7]=st;L[i][8]=nt;toast('সংরক্ষিত ✓')}else toast(r.err)}catch(x){toast(x.message)}b.textContent='💾 সংরক্ষণ'}}
+// সেটিং: ভোটের তারিখ, নোটিশ, ওয়ার্ডের তথ্য
+function admStShow(){const S=admSt,W=[1,2,3,4,5,6,7,8,9];
+ $('abd').innerHTML=`<div class="h2" style="margin-top:0">ওয়েবসাইট সেটিং</div><label>ভোটের তারিখ ও সময় (কাউন্টডাউন)<input type="datetime-local" id="s_vd" value="${esc(S.voteDate||'')}" style="${IS}"></label><label>হোমপেজের নোটিশ (ঐচ্ছিক)<input id="s_nt" value="${esc(S.notice||'')}" placeholder="যেমন: আগামীকাল সন্ধ্যায় উঠান বৈঠক" style="${IS}"></label>
+<div class="h2" style="margin-top:14px">ওয়ার্ডভিত্তিক তথ্য</div><p class="m" style="margin:0 0 6px">প্রতি ওয়ার্ডের সমস্যা ও কাজ কমা (,) বা নতুন লাইন দিয়ে লিখুন।</p>`+W.map(n=>`<details class="card r" style="padding:10px;margin-top:8px"><summary><b>ওয়ার্ড ${a2b(n)}</b></summary><label>প্রধান সমস্যা<textarea id="s_p${n}" rows="3" style="${IS}">${esc(S['ward'+n+'p']||'')}</textarea></label><label>কাজ / পরিকল্পনা<textarea id="s_w${n}" rows="3" style="${IS}">${esc(S['ward'+n+'w']||'')}</textarea></label></details>`).join('')+`<button class="pri" id="sts" style="margin-top:10px">💾 সংরক্ষণ করুন</button><p class="err" id="ae"></p>`;
+ $('sts').onclick=async()=>{const o={voteDate:$('s_vd').value,notice:$('s_nt').value};W.forEach(n=>{o['ward'+n+'p']=$('s_p'+n).value;o['ward'+n+'w']=$('s_w'+n).value});admSay('সংরক্ষণ হচ্ছে…');try{const r=await admApi({action:'st_save',settings:o});admSay(r.ok?'সংরক্ষিত ✓ — ওয়েবসাইটে এক মিনিটের মধ্যে দেখাবে।':r.err)}catch(x){admSay(x.message)}}}

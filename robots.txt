@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /agent.html
+Disallow: /caption.html
+Sitemap: https://sumonchairman.vercel.app/sitemap.xml

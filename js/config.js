@@ -12,7 +12,7 @@ phone:'০১৭৭৫-০৭৬৬১৭',tel:'+8801775076617',wa:"880177507661
 fb:"https://www.facebook.com/share/1CML2iWh2H/",video:'',   // video: ফেসবুক ভিডিওর লিংক বসালে হোমে ভিডিও বাটন আসবে
 formUrl:"https://script.google.com/macros/s/AKfycbxCRwStjFoULKfBJXVh865vYv7UuZhgZIw-d3VJi9xEr-ZbJwVi4RRjw4YPx8FIEZwaRA/exec",   // formUrl: Apps Script Web app URL (apps-script/README.txt দেখুন)
 
-site:'https://sumonvai-seven.vercel.app/',
+site:'https://sumonchairman.vercel.app/',
 voteDate:'',   // ভোটের তারিখ ও সময় লিখলে গাইডে দেখাবে, যেমন: '৩০ নভেম্বর ২০২৬, সকাল ৮টা–বিকাল ৪টা'
 bio:"সুমন জিয়াউর রহমান এই এলাকার মাটি ও মানুষের সন্তান। সমাজের নানা কল্যাণমূলক কাজে তিনি সক্রিয়, যুব সমাজের সাথে তাঁর নিবিড় সম্পর্ক। মাদকের ভয়াল থাবা থেকে তরুণদের রক্ষা করা এবং সাধারণ মানুষের সুখ-দুঃখে পাশে থাকাই তাঁর প্রধান লক্ষ্য। সেই লক্ষ্য নিয়েই তিনি ইউনিয়নের সেবায় নিজেকে নিয়োজিত করতে চান। (নমুনা জীবনী, পরে বদলানো হবে)",
 pledges:[
