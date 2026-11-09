@@ -65,3 +65,31 @@ label{display:block;font-size:14px;margin-top:10px;font-weight:600}
 .stats>div{transition:transform .25s}.stats>div:hover{transform:translateY(-3px)}
 .nm *{animation:none!important}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== প্রফেশনাল মোশন ও ৩ডি আইকন ===== */
+#pgb{position:fixed;top:0;left:0;right:0;height:4px;z-index:80;background:linear-gradient(90deg,#c8962e,#ffe08a,var(--c2));transform-origin:0 50%;transform:scaleX(0);transition:transform .12s}
+header{padding-bottom:70px!important}
+.wv{position:absolute;left:0;bottom:-1px;width:100%;height:46px;pointer-events:none}.wv path{transform-origin:center}.w1{fill:var(--bg);opacity:.5;animation:wv1 9s ease-in-out infinite alternate}.w2{fill:var(--bg);animation:wv2 7s ease-in-out infinite alternate}
+@keyframes wv1{from{transform:translateX(-40px)}to{transform:translateX(40px)}}@keyframes wv2{from{transform:translateX(30px)}to{transform:translateX(-30px)}}
+.av{box-shadow:0 12px 30px rgba(0,0,0,.35)}
+header h1{text-shadow:0 3px 14px rgba(0,0,0,.3);letter-spacing:.2px}
+.tkr{overflow:hidden;margin:12px -12px 0;background:linear-gradient(90deg,var(--c),var(--c2));color:#fff;padding:8px 0;white-space:nowrap;font-weight:700;font-size:14px;box-shadow:var(--sh);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.tkm{display:inline-block;animation:mq 38s linear infinite}.tkm span{display:inline-block;margin:0 22px}.tkm .i3{width:1.1em;height:1.1em}
+@keyframes mq{to{transform:translateX(-50%)}}
+.fi{position:absolute;z-index:1;pointer-events:none;font-size:30px;animation:fl 6s ease-in-out infinite}.fi0{left:12px;top:14px}.fi1{right:16px;top:84px;animation-delay:-2s;font-size:24px}.fi2{left:16px;bottom:78px;animation-delay:-4s;font-size:22px}.fi3{right:24px;bottom:18px;animation-delay:-1s;font-size:26px}
+.hero .cdt,.hero .cdb,.hero .row,.hero .hb{z-index:2}
+/* আইকন আকার */
+nav button span,nav a span{display:block;font-size:20px;line-height:1.1}nav button span .i3,nav a span .i3{width:1.5em;height:1.5em}
+nav .on span .i3{animation:bob .9s ease-in-out infinite alternate}@keyframes bob{to{transform:translateY(-3px) scale(1.12)}}
+.cta .ci .i3{width:1.5em;height:1.5em;animation:fl 3s ease-in-out infinite}
+.tl span .i3{width:1.55em;height:1.55em}
+.pc .pi{background:none;box-shadow:none;width:68px;height:68px;font-size:44px;animation:none}.pc .pi .i3{width:1.5em;height:1.5em;animation:fl 4.5s ease-in-out infinite}
+.dd{background:linear-gradient(160deg,var(--c2),var(--c));box-shadow:0 5px 0 color-mix(in srgb,var(--c) 55%,#000),0 8px 14px rgba(0,0,0,.2)}
+.sh .i3{width:1.3em;height:1.3em}
+#cb{padding:0 18px 0 10px}#cb .i3{width:1.9em;height:1.9em}
+.hero .row button .i3,#gsh button .i3,.lbs button .i3{width:1.3em;height:1.3em}
+.btn .i3{width:1.3em;height:1.3em}
+h2{position:relative;padding-bottom:6px}h2::after{content:"";position:absolute;left:0;bottom:0;width:38px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),transparent);transition:width .5s}.card:hover h2::after{width:90px}
+.card,.tl,.wt,.pc{will-change:transform}
+.rv{opacity:0;transform:translateY(22px) scale(.97);transition:opacity .6s,transform .6s cubic-bezier(.2,.8,.2,1)}.rv.in{opacity:1;transform:none}
+.stats>div{background:var(--card);border:1px solid var(--line);box-shadow:var(--sh);border-radius:16px}
+.stats{margin-top:12px}
