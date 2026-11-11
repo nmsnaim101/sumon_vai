@@ -14,15 +14,15 @@ window.shWA=shWA;window.shFB=shFB;
 function cdDraw(){const e=$('cd');if(!e)return;const vd=S().voteDate||CFG.voteDate,nt=S().notice;
  $('nt').style.display=nt?'':'none';$('nt').textContent=nt?'📢 '+nt:'';
  const t=vd?new Date(vd).getTime():NaN;
- if(!(t>0)){e.innerHTML='<div class="cdt">🗳️ ভোটের তারিখ শিগগিরই জানানো হবে</div>';return}
+ if(!(t>0)){e.innerHTML='<div class="cdm">ভোটের তারিখ শিগগিরই জানানো হবে</div>';return}
  const d=t-Date.now();
- if(d<=0){e.innerHTML='<div class="cdt">🗳️ ভোটের সময় এসে গেছে — ধানের শীষে ভোট দিন!</div>';return}
- const D=Math.floor(d/864e5),H=Math.floor(d%864e5/36e5),M=Math.floor(d%36e5/6e4),Sx=Math.floor(d%6e4/1e3);
- e.innerHTML=`<div class="cdt">ভোটের আর <b>${bn(D)} দিন</b> বাকি</div><div class="cdb"><div><b>${bn(D)}</b>দিন</div><div><b>${bn(H)}</b>ঘণ্টা</div><div><b>${bn(M)}</b>মিনিট</div><div><b class="tk">${bn(Sx)}</b>সেকেন্ড</div></div>`}
+ if(d<=0){e.innerHTML='<div class="cdm">ভোটের সময় এসে গেছে — ধানের শীষে ভোট দিন</div>';return}
+ const D=Math.floor(d/864e5),H=Math.floor(d%864e5/36e5),M=Math.floor(d%36e5/6e4),Sx=Math.floor(d%6e4/1e3),z=n=>bn(String(n).padStart(2,'0'));
+ e.innerHTML=`<div class="cdl">ভোটের আর</div><div class="cdn"><b>${bn(D)}</b><i>দিন</i></div><div class="cdt2"><span><b>${z(H)}</b>ঘণ্টা</span><span><b>${z(M)}</b>মিনিট</span><span><b>${z(Sx)}</b>সেকেন্ড</span></div>`}
 setInterval(cdDraw,1000);
 
 // ---------- প্রতিশ্রুতি স্লাইডার ----------
-const IC=['🛡️','🎓','🏥','🛣️','💡','💼','🤝','🌾'];
+const IC=['🛡️','🤝','🌾','📍','📋'];
 function pledges(){const el=$('pl');if(!el)return;
  el.className='sl';el.innerHTML=CFG.pledges.map((p,i)=>`<article class="pc"><div class="pi">${IC[i%IC.length]}</div><h3>${esc(p.t)}</h3><p>${esc(p.d)}</p><ul>${(p.pts||[]).slice(0,3).map(x=>`<li>${esc(x)}</li>`).join('')}</ul><button class="lnk" data-go="manifesto">বিস্তারিত ইশতেহার →</button></article>`).join('');
  const dt=document.createElement('div');dt.className='dots';dt.innerHTML=CFG.pledges.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('');el.after(dt);
@@ -59,7 +59,7 @@ function prob(){
  try{const m=localStorage.getItem('myProb');if(m)$('tn').value=m}catch(e){}
  $('tg').onclick=async()=>{const id=$('tn').value.replace(/[^\d০-৯]/g,'').replace(/[০-৯]/g,c=>'০১২৩৪৫৬৭৮৯'.indexOf(c)),o=$('tr');if(!id)return o.textContent='নম্বর লিখুন।';if(!U)return o.textContent='এই সুবিধা এখনো চালু হয়নি।';o.textContent='খোঁজা হচ্ছে…';
   try{const r=await(await fetch(U+'?a=track&id='+id)).json();if(!r.ok)return o.textContent=r.err;const st=['নতুন','চলমান','সমাধান হয়েছে'],k=Math.max(0,st.indexOf(r.status));
-   o.innerHTML=`<div class="idb"><b>নম্বর ${bn(id)}</b> · ${esc(r.subject)}<div class="stp">${st.map((s,i)=>`<span class="${i<=k?'on':''}${i==k?' cur':''}">${i==2?'✅':i+1}<small>${s=='নতুন'?'গৃহীত':s}</small></span>`).join('')}</div><b>${r.status=='সমাধান হয়েছে'?'🎉 সমাধান হয়েছে':r.status=='চলমান'?'⏳ কাজ চলছে':'📝 গৃহীত হয়েছে, দেখা হচ্ছে'}</b>${r.note?'<p>'+esc(r.note)+'</p>':''}</div>`}
+   o.innerHTML=`<div class="idb"><b>নম্বর ${bn(id)}</b> · ${esc(r.subject)}<div class="stp">${st.map((s,i)=>`<span class="${i<=k?'on':''}${i==k?' cur':''}"><em>${i<k||(i==2&&k==2)?'✅':bn(i+1)}</em><small>${s=='নতুন'?'গৃহীত':s}</small></span>`).join('')}</div><b>${r.status=='সমাধান হয়েছে'?'🎉 সমাধান হয়েছে':r.status=='চলমান'?'⏳ কাজ চলছে':'📝 গৃহীত হয়েছে, দেখা হচ্ছে'}</b>${r.note?'<p>'+esc(r.note)+'</p>':''}</div>`}
   catch(e){o.textContent='অবস্থা জানা যায়নি, আবার চেষ্টা করুন।'}}}
 
 // ---------- ইনস্টল ----------
