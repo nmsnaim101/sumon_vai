@@ -34,7 +34,7 @@ nav button.on::before{content:"";position:absolute;top:0;left:24%;right:24%;heig
 
 /* ---- হিরো ---- */
 .nt{margin:12px 0 0;padding:10px 14px;border-radius:8px;background:color-mix(in srgb,var(--acc) 18%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 55%,var(--line));font-weight:600;font-size:14.5px}
-.hero2{position:relative;margin:0 -12px;height:488px;overflow:hidden;color:#fff;background:repeating-linear-gradient(112deg,rgba(255,255,255,.035) 0 1px,transparent 1px 15px),radial-gradient(90% 60% at 78% 38%,color-mix(in srgb,var(--c) 88%,#fff) 0,transparent 65%),linear-gradient(172deg,color-mix(in srgb,var(--c) 76%,#000),color-mix(in srgb,var(--c) 48%,#000))}
+.hero2{position:relative;margin:0 -12px;height:546px;overflow:hidden;color:#fff;background:repeating-linear-gradient(112deg,rgba(255,255,255,.035) 0 1px,transparent 1px 15px),radial-gradient(90% 60% at 78% 38%,color-mix(in srgb,var(--c) 88%,#fff) 0,transparent 65%),linear-gradient(172deg,color-mix(in srgb,var(--c) 76%,#000),color-mix(in srgb,var(--c) 48%,#000))}
 .hx{position:relative;z-index:3;padding:26px 20px 0}
 .hsl{margin:0;font:800 clamp(34px,10.4vw,54px)/1.24 var(--fd);letter-spacing:-.3px;text-shadow:0 2px 18px rgba(0,0,0,.28)}
 .hsl span{display:block;animation:rise .8s var(--ease) both}.hsl span:nth-child(2){animation-delay:.12s}.hsl span:nth-child(3){animation-delay:.24s}
@@ -181,3 +181,31 @@ input:focus,select:focus,textarea:focus{outline:2px solid color-mix(in srgb,var(
 .pc li,.wdt li{background:none;padding:0;border:0;border-radius:0}
 nav button,nav a{opacity:1}
 .pc ul{list-style:disc}.pc li{margin:4px 0}
+
+/* ---- হিরো: দুনু চেয়ারম্যানের ছবি ---- */
+.dpt{position:absolute;z-index:3;top:14px;right:14px;width:88px;height:88px;border-radius:50%;object-fit:cover;object-position:50% 22%;border:3px solid var(--acc);box-shadow:0 0 0 5px rgba(255,255,255,.16),0 10px 26px rgba(0,0,0,.45);animation:dpin .9s .35s var(--ease) both}
+@keyframes dpin{from{opacity:0;transform:scale(.6) translateY(-10px)}to{opacity:1;transform:none}}
+@media(min-width:700px){.dpt{width:104px;height:104px;top:18px;right:22px}}
+
+/* ---- নতুন চ্যাট ---- */
+#cp{max-height:min(78vh,600px);width:auto}
+.chd{gap:10px;justify-content:flex-start}.chd .cht{flex:1;display:flex;flex-direction:column;line-height:1.25}.chd .cht b{font:700 15.5px var(--fd)}
+.chd small{font-size:12px;opacity:.9;display:flex;align-items:center;gap:5px}.chd small i{width:7px;height:7px;border-radius:50%;background:#5dd18b;display:inline-block}
+.chav{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:19px;flex:none}
+#cm{background:color-mix(in srgb,var(--c) 5%,var(--bg,#f4f6f5));padding:12px;gap:9px;scroll-behavior:smooth}
+.bm{font-size:14.5px;line-height:1.6;border-radius:16px;word-break:break-word;animation:bub .38s cubic-bezier(.2,.9,.3,1.2) both;transform-origin:bottom left}
+.bm.b{background:var(--card);border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.bm.u{border-bottom-right-radius:4px;transform-origin:bottom right;background:var(--c)}
+@keyframes bub{from{opacity:0;transform:translateY(26px) scale(.9)}to{opacity:1;transform:none}}
+.bm a{color:var(--c);font-weight:600}.bm.u a{color:#fff}
+.bm .tm{display:block;font-size:10.5px;opacity:.55;margin-top:3px;text-align:right}
+.bm ul{margin:4px 0 0;padding-left:18px}.bm li{margin:2px 0}
+.ty{display:inline-flex;gap:4px;padding:12px 14px}.ty i{width:7px;height:7px;border-radius:50%;background:var(--c);opacity:.35;animation:tyd 1s infinite}.ty i:nth-child(2){animation-delay:.15s}.ty i:nth-child(3){animation-delay:.3s}
+@keyframes tyd{0%,60%,100%{transform:none;opacity:.35}30%{transform:translateY(-5px);opacity:1}}
+.bm .sl{width:100%;border-radius:10px;border:1px solid var(--line);margin-top:8px;display:block;background:#fff}
+.bm .ba button{border-radius:99px}
+.cin input{border-radius:99px;padding:0 16px}.cin button{border-radius:50%;width:44px;height:44px}
+.ch-w{display:inline-block;padding:1px 8px;border-radius:99px;background:color-mix(in srgb,var(--c) 14%,transparent);font-size:12px;font-weight:600}
+@media(prefers-reduced-motion:reduce){.bm{animation:none}}
+#cq,.cin,.chd{flex:none}#cq button{white-space:nowrap}
+.chav{background:#fff url(../img/candidate.jpg) center/cover;font-size:0;border:2px solid var(--acc)}

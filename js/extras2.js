@@ -72,37 +72,10 @@ function inst(){const b=$('inst');if(!b)return;if(isApp()){b.style.display='none
   m.onclick=()=>m.remove();document.body.appendChild(m)}}
 addEventListener('appinstalled',()=>{const b=$('inst');if(b)b.style.display='none'});
 
-// ---------- চ্যাটবট ----------
-const BOT=[];let st=0,vno='';
-const nxt=()=>{const L=(PUB.events||[]).filter(e=>e.d&&new Date(e.d+'T23:59:59')>=new Date()).sort((a,b)=>a.d.localeCompare(b.d))[0];return L};
-function say(t,who,acts){const m=$('cm'),d=document.createElement('div');d.className='bm '+(who||'b');d.innerHTML=t;if(acts){const a=document.createElement('div');a.className='ba';acts.forEach(x=>{const b=document.createElement('button');b.textContent=x[0];b.onclick=()=>x[1]();a.appendChild(b)});d.appendChild(a)}m.appendChild(d);m.scrollTop=m.scrollHeight}
-const Q=[['আমার ভোটকেন্দ্র কোথায়?',()=>ans('কেন্দ্র')],['স্লিপ কীভাবে পাব?',()=>ans('স্লিপ')],['ভোট কবে?',()=>ans('কবে')],['কর্মসূচি কী কী?',()=>ans('কর্মসূচি')],['সমস্যা জানাতে চাই',()=>ans('সমস্যা')]];
-function slipAsk(){st=1;say('আপনার <b>ভোটার নম্বর</b> লিখুন (ভোটার আইডি কার্ডের নম্বর, শুধু সংখ্যা)।')}
-function ans(t){const x=t.replace(/[০-৯]/g,c=>'০১২৩৪৫৬৭৮৯'.indexOf(c));
- if(st==1){const n=x.replace(/\D/g,'');if(n.length<8||n.length>17)return say('নম্বরটি ঠিক মনে হচ্ছে না। ৮ থেকে ১৭ ডিজিটের ভোটার নম্বর লিখুন।');vno=n;st=2;return say('ধন্যবাদ। এখন আপনার <b>মোবাইল নম্বর</b> লিখুন, আমাদের এজেন্ট স্লিপ ও কেন্দ্রের তথ্য পাঠিয়ে দেবেন।')}
- if(st==2){const p=x.replace(/\D/g,'');if(p.length<10)return say('মোবাইল নম্বর ঠিক নয়। ১১ ডিজিটের নম্বর লিখুন।');st=0;
-  if(U)fetch(U,{method:'POST',mode:'no-cors',body:JSON.stringify({type:'স্লিপ অনুরোধ',name:'চ্যাটবট',phone:p,ward:'',msg:'ভোটার নম্বর: '+vno})}).catch(()=>{});
-  return say('✅ আপনার অনুরোধ পৌঁছেছে। এজেন্ট শিগগিরই আপনার ভোটার স্লিপ ও ভোটকেন্দ্রের তথ্য পাঠাবেন।')}
- const has=(...w)=>w.some(k=>x.includes(k));
- if(has('কেন্দ্র'))return say('আপনার ভোটকেন্দ্র আপনার <b>ভোটার স্লিপে</b> লেখা থাকে। স্লিপ পেতে নিচে চাপুন — ভোটার নম্বর দিলে আমাদের এজেন্ট কেন্দ্রের তথ্যসহ স্লিপ পাঠাবেন।',0,[['🎫 স্লিপ ও কেন্দ্র জানুন',slipAsk]]);
- if(has('স্লিপ','ভোটার নম্বর','তালিকা','আইডি'))return say('ভোটার স্লিপ পাওয়ার উপায়: ১) ভোটার নম্বর আমাদের দিন, এজেন্ট স্লিপ পাঠাবেন। ২) এলাকার এজেন্টের কাছে নাম বললেও স্লিপ পাওয়া যায়। ভোটের দিন স্লিপ ছাড়াও জাতীয় পরিচয়পত্র নিয়ে কেন্দ্রে যেতে পারবেন।',0,[['🎫 স্লিপ চাই',slipAsk]]);
- if(has('কবে','তারিখ','দিন বাকি','কখন')){const vd=S().voteDate||CFG.voteDate,t=vd?new Date(vd).getTime():0;return say(t>Date.now()?`ভোটের আর <b>${bn(Math.ceil((t-Date.now())/864e5))} দিন</b> বাকি। তারিখ: ${bn(new Date(t).toLocaleDateString('en-GB'))}`:'ভোটের তারিখ এখনো জানানো হয়নি। ঘোষণা হলে এই সাইটের হোম পেজে দেখতে পাবেন।')}
- if(has('কর্মসূচি','সভা','প্রোগ্রাম','উঠান')){const e=nxt();return say(e?`পরবর্তী কর্মসূচি: <b>${esc(e.n)}</b><br>📅 ${bn(+e.d.split('-')[2])} ${MON[+e.d.split('-')[1]-1]} ${e.t?'· 🕒 '+esc(e.t):''}<br>📍 ${esc(e.p)}`:'এখন নতুন কর্মসূচি নেই। শিগগিরই জানানো হবে।')}
- if(has('সমস্যা','অভিযোগ','রাস্তা','বিদ্যুৎ'))return say('আপনার এলাকার সমস্যা জানান, একটি ট্র্যাকিং নম্বর পাবেন। পরে সেই নম্বরে অবস্থা দেখতে পারবেন।',0,[['📍 সমস্যা জানান',()=>{go('ward');tab('rp')}],['🔎 অবস্থা দেখুন',()=>{go('ward');tab('tr')}]]);
- if(has('স্বেচ্ছাসেবক','কর্মী','যুক্ত'))return say('স্বেচ্ছাসেবক হতে ফর্ম পূরণ করুন।',0,[['🙋 ফর্মে যান',()=>{go('form');$('ft').value='স্বেচ্ছাসেবক হতে চাই'}]]);
- if(has('ব্যানার','ছবি','ফ্রেম','প্রোফাইল'))return say('নিজের ছবি দিয়ে সমর্থক ব্যানার বানাতে ব্যানার পেজে যান।',0,[['🖼️ ব্যানার বানান',()=>go('make')]]);
- if(has('প্রতীক','ধানের শীষ','মার্কা'))return say('আমাদের প্রতীক <b>'+esc(CFG.symbol)+'</b>।');
- if(has('ফোন','যোগাযোগ','নম্বর','কল','অফিস'))return say('যোগাযোগ: <a href="tel:'+CFG.tel+'">'+esc(CFG.phone)+'</a>',0,[['📞 কল করুন',()=>location.href='tel:'+CFG.tel]]);
- if(has('কাগজ','কার্ড','পরিচয়','এনআইডি','nid','কী লাগবে'))return say('ভোট দিতে লাগবে: আপনার <b>জাতীয় পরিচয়পত্র (NID)</b>। ভোটার স্লিপ সাথে থাকলে ভালো, তবে স্লিপ ছাড়াও ভোট দেওয়া যায়।',0,[['🗳️ ভোটের দিনের গাইড',()=>go('guide')]]);
- if(has('হ্যালো','হাই','সালাম','আসসালামু','শুভ'))return say('আসসালামু আলাইকুম! আমি আপনার ভোটার সহায়তাকারী। নিচের প্রশ্নগুলো থেকে বেছে নিন বা নিজের প্রশ্ন লিখুন।');
- say('দুঃখিত, এটা বুঝতে পারিনি। নিচের প্রশ্নগুলো চেষ্টা করুন বা সরাসরি কল করুন: <a href="tel:'+CFG.tel+'">'+esc(CFG.phone)+'</a>')}
-function bot(){const o=$('cb'),p=$('cp');
- o.onclick=()=>{p.classList.toggle('on');o.classList.remove('pu');if(!BOT.length){BOT.push(1);say('আসসালামু আলাইকুম 👋 আমি <b>ভোটার সহায়তা</b>। কীভাবে সাহায্য করতে পারি?')}};
- $('cq').innerHTML=Q.map((x,i)=>`<button data-i="${i}">${x[0]}</button>`).join('');
- $('cq').onclick=e=>{const b=e.target.closest('button');if(!b)return;const x=Q[+b.dataset.i];say(esc(x[0]),'u');st=0;x[1]()};
- $('cx').onclick=()=>p.classList.remove('on');
- const send=()=>{const v=$('ci').value.trim();if(!v)return;$('ci').value='';say(esc(v),'u');setTimeout(()=>ans(v),350)};$('cs').onclick=send;$('ci').onkeydown=e=>{if(e.key==='Enter')send()};
- setTimeout(()=>o.classList.add('pu'),4000)}
+// ---------- চ্যাটবটের জন্য সেতু (js/bot.js) ----------
+const nxt=()=>(PUB.events||[]).filter(e=>e.d&&new Date(e.d+'T23:59:59')>=new Date()).sort((a,b)=>a.d.localeCompare(b.d))[0];
+window.SB={go,tab:t=>tab(t),S,nxt,MON,TOT,WD,U,SITE};
+setTimeout(()=>{const o=$('cb');o&&o.classList.add('pu')},4000);
 
 // ---------- শেয়ার: গ্যালারি ----------
 function galShare(){const gl=$('gl');if(!gl)return;const row=document.createElement('div');row.id='gsh';row.className='row';gl.before(row);
@@ -131,6 +104,6 @@ $('shs').onclick=()=>shWA('🌾 ধানের শীষে ভোট দিন
 $('shf').onclick=()=>shFB(SITE);
 
 function all(){cdDraw();evs();wards()}
-pledges();prob();inst();bot();galShare();all();
+pledges();prob();inst();galShare();all();
 fetch(U+'?a=pub').then(r=>r.json()).then(r=>{if(r&&r.ok){PUB=r;try{localStorage.setItem('pub',JSON.stringify(r))}catch(e){}all()}}).catch(()=>{});
 })();
