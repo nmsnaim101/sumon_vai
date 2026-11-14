@@ -7,12 +7,13 @@ const WD=[[5390,'শ্রীধর পুর, আলী হাসিম পু�
 const TOT=WD.reduce((a,w)=>a+w[0],0),nf=n=>bn(String(n).replace(/\B(?=(\d{3})+(?!\d))/g,','));
 let PUB={events:[],settings:{}};try{PUB=JSON.parse(localStorage.getItem('pub'))||PUB}catch(e){}
 const S=()=>PUB.settings||{};
-const shWA=(t,u)=>open('https://wa.me/?text='+encodeURIComponent(t+'\n'+(u||SITE)),'_blank','noopener'),shFB=u=>open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(u||SITE),'_blank','noopener');
+const hit=(k,f)=>window.SB&&window.SB.hit&&window.SB.hit(k,f);
+const shWA=(t,u)=>hit('share',1)||open('https://wa.me/?text='+encodeURIComponent(t+'\n'+(u||SITE)),'_blank','noopener'),shFB=u=>hit('share',1)||open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(u||SITE),'_blank','noopener');
 window.shWA=shWA;window.shFB=shFB;
 
 // ---------- হোম: নোটিশ, কাউন্টডাউন ----------
 function cdDraw(){const e=$('cd');if(!e)return;const vd=S().voteDate||CFG.voteDate,nt=S().notice;
- $('nt').style.display=nt?'':'none';$('nt').textContent=nt?'📢 '+nt:'';
+ if(!(window.SBtk&&window.SBtk())){$('nt').style.display=nt?'':'none';$('nt').textContent=nt?'📢 '+nt:''}
  const t=vd?new Date(vd).getTime():NaN;
  if(!(t>0)){e.innerHTML='<div class="cdm">ভোটের তারিখ শিগগিরই জানানো হবে</div>';return}
  const d=t-Date.now();
@@ -74,7 +75,7 @@ addEventListener('appinstalled',()=>{const b=$('inst');if(b)b.style.display='non
 
 // ---------- চ্যাটবটের জন্য সেতু (js/bot.js) ----------
 const nxt=()=>(PUB.events||[]).filter(e=>e.d&&new Date(e.d+'T23:59:59')>=new Date()).sort((a,b)=>a.d.localeCompare(b.d))[0];
-window.SB={go,tab:t=>tab(t),S,nxt,MON,TOT,WD,U,SITE};
+window.SB={go,tab:t=>tab(t),S,nxt,MON,TOT,WD,U,SITE,PUB:()=>PUB,pledges:()=>{const o=$('pl');if(o&&o.nextElementSibling&&o.nextElementSibling.classList.contains('dots'))o.nextElementSibling.remove();pledges()}};
 setTimeout(()=>{const o=$('cb');o&&o.classList.add('pu')},4000);
 
 // ---------- শেয়ার: গ্যালারি ----------
@@ -105,5 +106,5 @@ $('shf').onclick=()=>shFB(SITE);
 
 function all(){cdDraw();evs();wards()}
 pledges();prob();inst();galShare();all();
-fetch(U+'?a=pub').then(r=>r.json()).then(r=>{if(r&&r.ok){PUB=r;try{localStorage.setItem('pub',JSON.stringify(r))}catch(e){}all()}}).catch(()=>{});
+fetch(U+'?a=pub').then(r=>r.json()).then(r=>{if(r&&r.ok){PUB=r;try{localStorage.setItem('pub',JSON.stringify(r))}catch(e){}all();window.SBpub&&window.SBpub(r)}}).catch(()=>{});
 })();

@@ -7,8 +7,12 @@ gShow=()=>{const d=GD,cs=d.cats||[],c=GC?cs.find(x=>x.id==GC):null,L=c?(c.photos
  $('gk').innerHTML=`<button class="${GC?'':'on'}" data-k="0">সব (${gAll(d).length})</button>`+cs.map(x=>`<button class="${x.id==GC?'on':''}" data-k="${x.id}">${esc(x.name)} (${(x.photos||[]).length})</button>`).join('');
  $('gd').textContent=c?c.desc||'':'';
  $('gl').innerHTML=L.length?L.map(p=>`<div class="gt"><img src="${esc(p.src)}" data-full="${esc(p.full||p.src)}" onerror="this.onerror=null;this.src=this.dataset.full" alt="${esc(p.cap)}" loading="lazy">${p.cap?`<b>${esc(p.cap)}</b>`:''}</div>`).join(''):'<div class="card" style="grid-column:1/-1;text-align:center">📷 শীঘ্রই ছবি যুক্ত হবে।</div>'};
-J('data/gallery.json').then(d=>{d=GD=d||{};if(d.photos&&!d.cats)d.cats=[{id:1,name:'ছবি',desc:'',photos:d.photos}];gShow();
- $('vl').innerHTML=(d.videos||[]).map(v=>`<div class="card"><b>${esc(v.title)}</b>${vb(v.url)}</div>`).join('')+(d.voice||[]).map(v=>`<div class="card"><b>🎙️ ${esc(v.title)}</b><audio controls preload="none" src="${esc(v.src)}" style="width:100%;margin-top:8px"></audio></div>`).join('')});
+let GL=0;const loadG=()=>{if(GL)return;GL=1;if(!GD)$('gl').innerHTML='<div class="card" style="grid-column:1/-1;text-align:center">ছবি লোড হচ্ছে…</div>';
+ J('data/gallery.json').then(d=>{d=GD=d||{};if(d.photos&&!d.cats)d.cats=[{id:1,name:'ছবি',desc:'',photos:d.photos}];gShow();
+ window.GVID=(d.videos||[]).map(v=>({t:v.title,u:v.url}));window.SBv&&window.SBv();
+ $('vv').innerHTML=(d.voice||[]).map(v=>`<div class="card"><b>🎙️ ${esc(v.title)}</b><audio controls preload="none" src="${esc(v.src)}" style="width:100%;margin-top:8px"></audio></div>`).join('')})};
+document.addEventListener('click',e=>{if(e.target.closest('nav button[data-t="gallery"]'))loadG()},true);
+{const cn=navigator.connection||{};if(!cn.saveData&&!/2g/.test(cn.effectiveType||''))setTimeout(()=>('requestIdleCallback'in window?requestIdleCallback(loadG):loadG()),9000)}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-v]'),g=e.target.closest('#gl img'),k=e.target.closest('#gk button');
  if(k){GC=+k.dataset.k;gShow()}
  if(b)b.outerHTML=`<iframe class="v" allowfullscreen allow="autoplay;encrypted-media;picture-in-picture" src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(b.dataset.v)}&show_text=false"></iframe>`;

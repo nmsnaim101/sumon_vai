@@ -114,7 +114,7 @@ function slipActs(c,r){const nm='voter-slip-'+r.a+'-'+r.g+'-'+r.s+'.png';return[
  ['⬇ ডাউনলোড',async()=>{const b=await toBlob(c),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=nm;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}],
  ['🖨 প্রিন্ট',()=>{const w=open('','_blank');if(!w)return;w.document.write('<title>ভোটার স্লিপ</title><style>body{margin:0;text-align:center}img{max-width:100%;width:520px}@page{margin:10mm}</style><img src="'+c.toDataURL('image/png')+'" onload="print()">');w.document.close()}],
  ['💬 শেয়ার',async()=>{try{const b=await toBlob(c),f=new File([b],nm,{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'ভোটার স্লিপ'});return}}catch(e){if(e&&e.name==='AbortError')return}window.shWA&&window.shWA('🎫 আমার ভোটার স্লিপ। ধানের শীষে ভোট দিন! — '+(CFG.name||''),CFG.site)}]]}
-async function showSlip(r){const c=await slip(r);
+async function showSlip(r){const c=await slip(r);window.SB&&SB.hit&&SB.hit('slip',1);
  const html='✅ <b>স্লিপ পাওয়া গেছে</b><br><span class="ch-w">ওয়ার্ড '+a2b(r.w)+'</span> ক্রমিক '+a2b(r.s)+'<img class="sl" alt="ভোটার স্লিপ" src="'+c.toDataURL('image/png')+'">';
  const acts=slipActs(c,r).map(x=>[x[0],'fn']);
  await bot(html,[],{after:b=>{const a=document.createElement('div');a.className='ba';slipActs(c,r).forEach(x=>{const bt=document.createElement('button');bt.textContent=x[0];bt.onclick=x[1];a.appendChild(bt)});b.insertBefore(a,b.querySelector('.tm'));down()}});
@@ -171,7 +171,7 @@ $('cq').innerHTML='';QS.forEach(q=>{const b=document.createElement('button');b.t
 const send=()=>{const v=$('ci').value.trim();if(!v)return;$('ci').value='';user(v);reply(v)};
 $('cs').onclick=send;$('ci').onkeydown=e=>{if(e.key==='Enter')send()};
 $('cx').onclick=close;
-$('cb').onclick=()=>{const p=$('cp');p.classList.toggle('on');$('cb').classList.remove('pu');
+$('cb').onclick=()=>{const p=$('cp');p.classList.toggle('on');if(p.classList.contains('on'))window.SB&&SB.hit&&SB.hit('chat');$('cb').classList.remove('pu');
  if(p.classList.contains('on')){if(!CNT){CNT=1;busy=busy.then(async()=>{const ty=document.createElement('div');ty.className='bm b';ty.innerHTML='<span class="ty"><i></i><i></i><i></i></span>';M.appendChild(ty);await wait(700);ty.remove();const b=document.createElement('div');b.className='bm b';b.textContent=GREET;M.appendChild(b)})}setTimeout(()=>$('ci').focus({preventScroll:true}),350)}};
 window.SBbot={reply,norm,match,parse};
 })();

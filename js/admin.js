@@ -14,7 +14,7 @@ async function admStep1(){const pw=$('apw').value;if(!pw)return admSay('পা�
  catch(x){admPW=null;admSay(x.message.indexOf('Failed')>=0||x.message.indexOf('fetch')>=0?'Apps Script লিংকে পৌঁছানো যায়নি। Deploy-এ Who has access: Anyone আছে কিনা এবং config.js-এর formUrl ঠিক কিনা দেখুন।':x.message)}}
 async function admStep2(){const code=($('aco').value||'').replace(/\D/g,'');if(code.length!==6)return admSay('৬ ডিজিটের কোড লিখুন।');admSay('যাচাই হচ্ছে…');
  try{const r=await admApi({action:'otp2',code});if(!r.ok){if(r.expired){admPW=null;setTimeout(adm,1500)}return admSay(r.err)}admTok=r.token;admMain()}catch(x){admSay(x.message)}}
-function admTabs(){const T=[['msg','📩 বার্তা'],['vol','🙋 স্বেচ্ছাসেবক'],['pr','🛠️ সমস্যা'],['ev','🗓️ কর্মসূচি'],['st','⚙️ সেটিং']];
+function admTabs(){const T=[['msg','📩 বার্তা'],['vol','🙋 স্বেচ্ছাসেবক'],['pr','🛠️ সমস্যা'],['ev','🗓️ কর্মসূচি'],['st','⚙️ সেটিং'],['news','📰 খবর'],['vid','🎬 ভিডিও'],['cn','📝 কনটেন্ট'],['sx','📊 পরিসংখ্যান']];
  return `<div class="ch" id="atb">${T.map(t=>`<button data-t="${t[0]}"${admTab==t[0]?' class="on"':''}>${t[1]}</button>`).join('')}<button data-t="out">বের হন</button></div><div id="abd"></div>`}
 async function admMain(){$('v3').innerHTML=admTabs();$('atb').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.t==='out'){admTok=admPW=null;admRows=[];admSeen=null;return adm()}admTab=b.dataset.t;admMain()};
  const bd=$('abd');bd.innerHTML='<p class="m">লোড হচ্ছে…</p>';
@@ -22,6 +22,7 @@ async function admMain(){$('v3').innerHTML=admTabs();$('atb').onclick=e=>{const 
   if(admTab==='msg'||admTab==='vol'){const r=await admApi({action:'list'});admRows=r.rows||[];admTab==='msg'?admShow(admRows):admVol(admRows)}
   else if(admTab==='ev'){const r=await admApi({action:'ev_get'});admEv=r.events||[];admEvShow()}
   else if(admTab==='pr'){const r=await admApi({action:'pr_list'});admPr=r.rows||[];admPrShow()}
+  else if(admTab==='news')await admNews();else if(admTab==='vid')await admVid();else if(admTab==='cn')await admCn();else if(admTab==='sx')await admSx();
   else if(admTab==='st'){const r=await admApi({action:'st_get'});admSt=r.settings||{};admStShow()}
  }catch(x){bd.innerHTML='<p class="err">'+esc(x.message)+'</p>'}}
 const admClk=e=>{const b=e.target.closest('[data-u]');if(!b)return;b.dataset.u.startsWith('tel')?location.href=b.dataset.u:open(b.dataset.u,'_blank','noopener')};
@@ -55,3 +56,5 @@ function admStShow(){const S=admSt,W=[1,2,3,4,5,6,7,8,9];
  $('abd').innerHTML=`<div class="h2" style="margin-top:0">ওয়েবসাইট সেটিং</div><label>ভোটের তারিখ ও সময় (কাউন্টডাউন)<input type="datetime-local" id="s_vd" value="${esc(S.voteDate||'')}" style="${IS}"></label><label>হোমপেজের নোটিশ (ঐচ্ছিক)<input id="s_nt" value="${esc(S.notice||'')}" placeholder="যেমন: আগামীকাল সন্ধ্যায় উঠান বৈঠক" style="${IS}"></label>
 <div class="h2" style="margin-top:14px">ওয়ার্ডভিত্তিক তথ্য</div><p class="m" style="margin:0 0 6px">প্রতি ওয়ার্ডের সমস্যা ও কাজ কমা (,) বা নতুন লাইন দিয়ে লিখুন।</p>`+W.map(n=>`<details class="card r" style="padding:10px;margin-top:8px"><summary><b>ওয়ার্ড ${a2b(n)}</b></summary><label>প্রধান সমস্যা<textarea id="s_p${n}" rows="3" style="${IS}">${esc(S['ward'+n+'p']||'')}</textarea></label><label>কাজ / পরিকল্পনা<textarea id="s_w${n}" rows="3" style="${IS}">${esc(S['ward'+n+'w']||'')}</textarea></label></details>`).join('')+`<button class="pri" id="sts" style="margin-top:10px">💾 সংরক্ষণ করুন</button><p class="err" id="ae"></p>`;
  $('sts').onclick=async()=>{const o={voteDate:$('s_vd').value,notice:$('s_nt').value};W.forEach(n=>{o['ward'+n+'p']=$('s_p'+n).value;o['ward'+n+'w']=$('s_w'+n).value});admSay('সংরক্ষণ হচ্ছে…');try{const r=await admApi({action:'st_save',settings:o});admSay(r.ok?'সংরক্ষিত ✓ — ওয়েবসাইটে এক মিনিটের মধ্যে দেখাবে।':r.err)}catch(x){admSay(x.message)}}}
+
+{const s=document.createElement('script');s.src='js/admin2.js?v10';document.head.appendChild(s)}
