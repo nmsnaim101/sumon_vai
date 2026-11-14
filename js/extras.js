@@ -16,7 +16,15 @@ document.addEventListener('click',e=>{if(e.target.closest('nav button[data-t="ga
 document.addEventListener('click',e=>{const b=e.target.closest('[data-v]'),g=e.target.closest('#gl img'),k=e.target.closest('#gk button');
  if(k){GC=+k.dataset.k;gShow()}
  if(b)b.outerHTML=`<iframe class="v" allowfullscreen allow="autoplay;encrypted-media;picture-in-picture" src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(b.dataset.v)}&show_text=false"></iframe>`;
- if(g){const l=document.createElement('div');l.id='lb';l.innerHTML=`<img src="${g.dataset.full||g.src}" alt="">`;l.onclick=()=>l.remove();document.body.appendChild(l)}});
+ if(g)lbOpen([...document.querySelectorAll('#gl img')],g)});
+// গ্যালারি লাইটবক্স: ক্যাপশন, আগে/পরে, সোয়াইপ, কীবোর্ড
+function lbOpen(L,g){let i=Math.max(0,L.indexOf(g));const l=document.createElement('div');l.id='lb';l.className='lbx';
+ l.innerHTML='<button class="lbc" aria-label="বন্ধ">✕</button><button class="lbn lbp" aria-label="আগের">‹</button><figure><img alt=""><figcaption></figcaption></figure><button class="lbn lbf" aria-label="পরের">›</button><div class="lbk"></div>';
+ const im=l.querySelector('img'),cp=l.querySelector('figcaption'),ct=l.querySelector('.lbk'),sh=n=>{i=(n+L.length)%L.length;const e=L[i];im.src=e.dataset.full||e.src;cp.textContent=e.alt||'';cp.hidden=!e.alt;ct.textContent=(i+1).toLocaleString('bn-BD')+' / '+L.length.toLocaleString('bn-BD')};
+ const k=e=>{if(e.key==='Escape')cl();if(e.key==='ArrowRight')sh(i+1);if(e.key==='ArrowLeft')sh(i-1)},cl=()=>{l.remove();document.removeEventListener('keydown',k)};
+ l.onclick=e=>{if(e.target.closest('.lbc')||e.target===l||e.target.tagName==='FIGURE')cl();else if(e.target.closest('.lbp'))sh(i-1);else if(e.target.closest('.lbf'))sh(i+1)};
+ let x0=null;l.ontouchstart=e=>x0=e.touches[0].clientX;l.ontouchend=e=>{if(x0==null)return;const d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50)sh(i+(d<0?1:-1))};
+ document.addEventListener('keydown',k);document.body.appendChild(l);sh(i)}
 $('fs').onclick=async()=>{const m=$('fm').value.trim(),n=$('fn').value.trim(),x=$('fx'),b=$('fs');
  if(!CFG.formUrl)return x.textContent='ফর্ম এখনো চালু হয়নি।';if(!n||!m)return x.textContent='নাম ও বার্তা লিখুন।';if($('fh').value)return;
  b.disabled=1;x.textContent='পাঠানো হচ্ছে…';

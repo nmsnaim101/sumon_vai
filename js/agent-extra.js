@@ -1,3 +1,24 @@
+// প্রিমিয়াম স্মার্ট কার্ড স্টাইল — সাদা ব্যাকগ্রাউন্ড, প্রিন্টের উপযোগী (শুধু ভোটার ফলাফলের কার্ড)
+(()=>{const st=document.createElement('style');st.textContent=`
+#rs .card.r{position:relative;border:1.5px solid #d9bf7a;border-radius:20px;color:#14211b;background:linear-gradient(160deg,#fff 0,#fff 60%,#fdfaf0 100%);box-shadow:0 10px 28px rgba(60,45,10,.12),0 0 0 4px rgba(217,191,122,.14);animation:scIn .45s both;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#rs .card.r:before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:linear-gradient(#e6c46a,#a47a24)}
+#rs .card.r:has(.av.f):before{background:linear-gradient(#f0a0c0,#c0457f)}
+#rs .card.r:after{content:"";position:absolute;right:-46px;top:-46px;width:170px;height:170px;border-radius:50%;pointer-events:none;background:radial-gradient(rgba(217,191,122,.28),transparent 68%)}
+@keyframes scIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+#rs .rh{padding:16px 16px 12px 24px;position:relative;z-index:1}
+#rs .av{background:linear-gradient(135deg,#f3dc98,#b98a2c);color:#2a1e05;box-shadow:0 0 0 3px #fff,0 0 0 4.5px #d9bf7a}#rs .av.f{background:linear-gradient(135deg,#f9c3d8,#d86a9a);color:#4a0f2a;box-shadow:0 0 0 3px #fff,0 0 0 4.5px #e7a3c0}
+#rs .nm{color:#0f2a22;font-size:19px}#rs .nm mark{background:#f6e7b4;color:#0f2a22;border-radius:4px}#rs .sub{color:#5b6b63}
+#rs .tag,#rs .tag.m,#rs .tag.f{background:#fff;color:#7a5a12;border:1px solid #d9bf7a}#rs .tag.f{color:#a3346b;border-color:#e7a3c0}
+#rs .vn{background:linear-gradient(90deg,#fbf7ea,#fff);border-color:#ecdca8;padding:12px 16px 12px 24px;position:relative;z-index:1}
+#rs .vn:before{content:"";flex:none;width:44px;height:33px;border-radius:7px;box-shadow:inset 0 0 0 1px rgba(90,60,5,.35);background-image:linear-gradient(90deg,transparent 39%,rgba(90,60,5,.3) 40% 41%,transparent 42%),linear-gradient(transparent 49%,rgba(90,60,5,.3) 50% 51%,transparent 52%),linear-gradient(135deg,#f6dd96,#b88a2a)}
+#rs .vn>div{flex:1;min-width:0}#rs .vn small{color:#6b6a5a}#rs .vn b{color:#0a4a37;letter-spacing:.12em;font-size:25px}
+#rs .vn button{background:linear-gradient(135deg,#0f5b44,#0a3d2e);color:#fff;font-weight:700}
+#rs dl{padding:14px 16px 14px 24px;position:relative;z-index:1}#rs dt{color:#7a7a6a}#rs dd{color:#14211b}
+#rs .ac{padding:0 16px 16px 24px;position:relative;z-index:1}#rs .ac button{background:#fff;color:#0a4a37;border:1.5px solid #d9bf7a}#rs .ac button+button{background:transparent;border:1.5px solid #dcd6c0;color:#5b6b63}
+#rs .mc{background:#fff;color:#0a4a37;border-color:#d9bf7a}
+#rs .mg{padding:16px 16px 16px 24px;color:#5b6b63}
+@media print{#rs .card.r{box-shadow:none;break-inside:avoid}#rs .ac,#rs .vn button,#rs .mc{display:none}}
+`;document.head.appendChild(st)})();
 // এজেন্ট পেজের "তালিকা" ট্যাব: ওয়ার্ড/এলাকা তালিকা, প্রিন্ট/PDF, Excel(CSV), একসাথে স্লিপ, পরিবার ভিউ, ভোট দেওয়ার টিক (টার্নআউট)
 (()=>{const T=document.querySelector('.tb');if(!T||!$('v3'))return;
 T.insertAdjacentHTML('beforeend','<button id="t4">তালিকা</button>');
